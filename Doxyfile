@@ -1,0 +1,81 @@
+# =========================================================================================
+# HELMO - Configuración de Doxygen
+# Ejecutar desde la carpeta helmo-ota-hmi:   doxygen Doxyfile
+# Resultado: docs/html/index.html
+# Solo se listan los valores distintos de los predeterminados; Doxygen usa sus valores por
+# defecto para todo lo demás.
+# =========================================================================================
+
+#---------------------------------------------------------------------------
+# Proyecto
+#---------------------------------------------------------------------------
+PROJECT_NAME           = "HELMO"
+PROJECT_NUMBER         = "2.0.0"
+PROJECT_BRIEF          = "Nodo de pH con OTA híbrida e interfaz de voz y gestos"
+# Logo opcional (máx. ~200 x 55 px). Quita el # y pon la ruta de tu imagen:
+#PROJECT_LOGO          = assets/helmo_logo.png
+OUTPUT_DIRECTORY       = docs
+OUTPUT_LANGUAGE        = Spanish
+
+#---------------------------------------------------------------------------
+# Archivos a documentar
+#---------------------------------------------------------------------------
+INPUT                  = README.md firmware servidor
+INPUT_ENCODING         = UTF-8
+RECURSIVE              = YES
+FILE_PATTERNS          = *.ino *.h *.c *.cpp *.py *.js *.md
+# Arduino: los .ino se leen como C++
+EXTENSION_MAPPING      = ino=C++
+USE_MDFILE_AS_MAINPAGE = README.md
+
+#---------------------------------------------------------------------------
+# SEGURIDAD: nada de llaves, contraseñas ni archivos generados en la documentación
+#---------------------------------------------------------------------------
+EXCLUDE                = firmware/helmo_nodo_ph/secretos.h \
+                         servidor/.env \
+                         servidor/llaves \
+                         docs
+EXCLUDE_PATTERNS       = */secretos.h \
+                         */llaves/* \
+                         *.pem \
+                         */.env \
+                         */model.h \
+                         */.git/*
+
+#---------------------------------------------------------------------------
+# Qué se extrae
+#---------------------------------------------------------------------------
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+JAVADOC_AUTOBRIEF      = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = .
+SHOW_INCLUDE_FILES     = YES
+SORT_MEMBER_DOCS       = NO
+
+#---------------------------------------------------------------------------
+# Código fuente navegable (se comparte el código documentado)
+#---------------------------------------------------------------------------
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+#---------------------------------------------------------------------------
+# Salida
+#---------------------------------------------------------------------------
+GENERATE_HTML          = YES
+GENERATE_TREEVIEW      = YES
+GENERATE_LATEX         = NO
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = NO
+
+#---------------------------------------------------------------------------
+# Diagramas: requiere Graphviz instalado (graphviz.org).
+# Si lo instalas, cambia HAVE_DOT a YES (y DOT_PATH si dot no está en el PATH).
+#---------------------------------------------------------------------------
+HAVE_DOT               = NO
+#DOT_PATH              = "C:/Program Files/Graphviz/bin"
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg

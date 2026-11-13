@@ -1,0 +1,5 @@
+# Nunca subir llaves ni secretos
+firmware/helmo_nodo_ph/secretos.h
+servidor/llaves/
+servidor/.env
+*.pem

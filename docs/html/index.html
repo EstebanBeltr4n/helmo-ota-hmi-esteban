@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HELMO: HELMO · Nodo de pH con OTA híbrida e interfaz de voz y gestos</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HELMO<span id="projectnumber">&#160;2.0.0</span>
+   </div>
+   <div id="projectbrief">Nodo de pH con OTA híbrida e interfaz de voz y gestos</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">HELMO · Nodo de pH con OTA híbrida e interfaz de voz y gestos </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a></p>
+<p>Integra en la arquitectura de HELMO (nodos Heltec V3 → gateway Dragino LPS8N → TTN Sandbox → MQTT → servidor Debian con helmo-bridge, MongoDB, Grafana y ngrok) tres trabajos previos:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Trabajo previo  </th><th class="markdownTableHeadNone">Qué se conserva  </th><th class="markdownTableHeadNone">Qué cambia  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">FUOTA por LoRaWAN (ChirpStack, Clase C)  </td><td class="markdownTableBodyNone">Puertos de comando, códigos de resultado, idea de sesión/trabajo  </td><td class="markdownTableBodyNone">Ya no transfiere la imagen por LoRa: TTN Sandbox solo permite ≈10 downlinks/día. Se vuelve a Clase A  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OTA segura por Wi-Fi (Jetson Orin Nano)  </td><td class="markdownTableBodyNone">SHA-256 progresivo, <span class="tt">Update.abort()</span>, watchdog de transferencia  </td><td class="markdownTableBodyNone">Se agrega <b>firma ECDSA</b>, anti-downgrade, rollback y el Wi-Fi solo se enciende al recibir la orden  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Voz y gestos (Nano 33 BLE Sense)  </td><td class="markdownTableBodyNone">Modelo de Edge Impulse y modelo de gestos  </td><td class="markdownTableBodyNone">Se unen en un solo firmware y se comunican con el nodo por UART  </td></tr>
+</table>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+¿Por qué dos firmwares?</h1>
+<p>La Heltec V3 no tiene micrófono ni IMU, y el Nano 33 BLE Sense no tiene radio LoRa. Cada placa hace lo que sabe hacer:</p>
+<ul>
+<li><b>Firmware 1 · <span class="tt">firmware/helmo_nodo_ph</span></b> (Heltec V3): pH, LoRaWAN/TTN, OTA, decisiones.</li>
+<li><b>Firmware 2 · <span class="tt">firmware/helmo_hmi_nano</span></b> (Nano 33 BLE Sense): escucha y detecta gestos, muestra el semáforo de pH.</li>
+</ul>
+<p>El nodo funciona igual sin el módulo HMI (<span class="tt"><a class="el" href="helmo__nodo__ph_8ino.html#ac703bc353410084def1ae65fc54b5dd3">HMI_HABILITADO</a> 0</span>).</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Cómo se orquesta una actualización</h1>
+<div class="fragment"><div class="line">Servidor Debian                    TTN Sandbox            Nodo Heltec (Clase A)</div>
+<div class="line">───────────────                    ───────────            ─────────────────────</div>
+<div class="line">1. firmar_firmware.py firmar  ──►  /opt/helmo/ota/ph-node/{manifest.json, .bin}</div>
+<div class="line">2. helmo_ota.py ordenar ──MQTT──►  cola downlink  ──────► (tras su próximo uplink)</div>
+<div class="line">                                   puerto 10: 01 07 02 01 00  = &quot;trabajo 7, ve a la v2.1.0&quot;</div>
+<div class="line">                                                          3. Enciende Wi-Fi de mantenimiento</div>
+<div class="line">                                                          4. GET manifest.json  (vía ngrok/Caddy)</div>
+<div class="line">                                                          5. Verifica firma ECDSA + versión &gt; actual</div>
+<div class="line">                                                          6. Descarga con SHA-256 progresivo</div>
+<div class="line">                                                          7. Update.end() → reinicia</div>
+<div class="line">                                                          8. Periodo de prueba: JOIN a TTN</div>
+<div class="line">                                                             ✓ se une  → confirma la versión</div>
+<div class="line">                                                             ✗ 15 min / 3 reinicios → ROLLBACK</div>
+<div class="line">9. helmo_ota.py escuchar  ◄──MQTT──  uplink puerto 5: EXITO | ERROR(detalle) | ROLLBACK</div>
+<div class="line">   → MongoDB: nodos, ota_trabajos  → Grafana</div>
+</div><!-- fragment --><p><b>Por qué es seguro aunque <span class="tt">/ota</span> sea público:</b> el nodo solo acepta un manifiesto firmado con la llave privada que vive en el servidor Debian. Quien controle la red o el túnel puede impedir la actualización, pero no instalar firmware falso ni una versión vieja.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+1. Conexiones</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Nano 33 BLE Sense  </th><th class="markdownTableHeadNone">Heltec V3  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D1 (TX)  </td><td class="markdownTableBodyNone">GPIO 47 (RX)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D0 (RX)  </td><td class="markdownTableBodyNone">GPIO 48 (TX)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">GND  </td><td class="markdownTableBodyNone">GND  </td></tr>
+</table>
+<p>Ambas placas usan lógica de 3,3 V. Alimenta el Nano por su USB o por <b>VIN desde el pin 5V</b> de la Heltec. Sensor de pH y MOSFET quedan igual (GPIO 1 y GPIO 6).</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+2. Firmware 1 · Nodo de pH (Heltec V3)</h1>
+<ol type="1">
+<li>Placa <b>Heltec WiFi LoRa 32(V3)</b>, región <b>US915</b>, y en <em>Tools → Partition Scheme</em> elige <b>8M with spiffs (3MB APP/1.5MB SPIFFS)</b>: deja dos particiones de aplicación con espacio de sobra.</li>
+<li>Librería <b>ArduinoJson</b> (Library Manager).</li>
+<li>Copia <span class="tt"><a class="el" href="secretos_8ejemplo_8h.html" title="Plantilla de credenciales del nodo de pH (sin valores reales).">secretos.ejemplo.h</a></span> como <b><span class="tt">secretos.h</span></b> (misma carpeta) y llénalo con tus DevEUI/JoinEUI/AppKey de TTN, el Wi-Fi de mantenimiento y <span class="tt"><a class="el" href="secretos_8ejemplo_8h.html#a92fe9a58d2759282596ab0103e312d55" title="URL base del servidor de distribución OTA, sin barra al final.">OTA_BASE_URL</a></span>. <span class="tt">secretos.h</span> nunca se publica ni se documenta.</li>
+<li>Genera las llaves (paso 4) para reemplazar <span class="tt"><a class="el" href="clave__publica__ota_8h.html" title="Clave pública ECDSA P-256 con la que el nodo verifica las actualizaciones.">clave_publica_ota.h</a></span>. Mientras tenga el marcador, el nodo rechaza toda actualización.</li>
+<li>Graba la <b>v2.0.0 por USB</b> una sola vez. Desde ahí, las siguientes van por OTA.</li>
+</ol>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Puertos LoRaWAN</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Puerto  </th><th class="markdownTableHeadNone">Dirección  </th><th class="markdownTableHeadNone">Contenido  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">3  </td><td class="markdownTableBodyNone">↑  </td><td class="markdownTableBodyNone">pH, mV, versión de firmware, estado (normal/aviso/alarma), HMI conectado, en prueba  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">4  </td><td class="markdownTableBodyNone">↑  </td><td class="markdownTableBodyNone">Evento de voz o gesto (solo los que importan al servidor)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">5  </td><td class="markdownTableBodyNone">↑  </td><td class="markdownTableBodyNone">Resultado OTA: <span class="tt">EXITO</span>, <span class="tt">ERROR</span> + detalle, <span class="tt">ROLLBACK</span>, <span class="tt">YA_AL_DIA</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">10  </td><td class="markdownTableBodyNone">↓  </td><td class="markdownTableBodyNone"><span class="tt">01</span> OTA · <span class="tt">02</span> intervalo · <span class="tt">03</span> medir ya · <span class="tt">04</span> reiniciar  </td></tr>
+</table>
+<p>Todos caben en DR0 (11 bytes). El intervalo por defecto es <b>5 min</b> para respetar el uso justo de TTN (~30 s de aire al día); en laboratorio puedes bajarlo con <span class="tt"><a class="el" href="helmo__ota_8py.html" title="HELMO - Orquestador OTA y eventos HMI (servidor de aplicación Debian 12).">helmo_ota.py</a> intervalo --min 1</span> durante una prueba corta.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+3. Firmware 2 · Módulo HMI (Nano 33 BLE Sense)</h1>
+<ol type="1">
+<li>Instala el <span class="tt">.zip</span> de Edge Impulse de <span class="tt">speech_recognition_Esteban</span> (<em>Sketch → Include Library → Add .ZIP Library</em>).</li>
+<li>Copia tu <span class="tt">model.h</span> de gestos en la carpeta del sketch y cambia su primera línea por: <div class="fragment"><div class="line"><span class="keyword">alignas</span>(16) <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> modelo_gestos[] = {</div>
+</div><!-- fragment --></li>
+<li>En el <span class="tt">.ino</span> pon <span class="tt"><a class="el" href="helmo__hmi__nano_8ino.html#a23dd73f96d43b70e7aae25e5daa46525">IMU_REV2</a> 1</span> si tu placa dice <em>REV2</em>; deja <span class="tt">0</span> si es la Rev1 (LSM9DS1).</li>
+<li><b>No necesitas <span class="tt">Arduino_TensorFlowLite</span></b>: el modelo de gestos corre con el TensorFlow Lite que trae la librería de Edge Impulse. Así se evita tener dos copias de TensorFlow chocando.</li>
+</ol>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Qué significa cada palabra y gesto</h2>
+<p>Se cambia en la tabla <span class="tt"><a class="el" href="helmo__nodo__ph_8ino.html#a077196a01edbd38801963311a1da08e4" title="Significado de cada palabra y gesto.">REGLAS_HMI</a></span> del firmware 1.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Detección  </th><th class="markdownTableHeadNone">Acción en el nodo  </th><th class="markdownTableHeadNone">¿Viaja a TTN?  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Voz <b>Rojo</b>  </td><td class="markdownTableBodyNone">Reporte de incidente del operario  </td><td class="markdownTableBodyNone">Sí (puerto 4)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Voz <b>Amarillo</b>  </td><td class="markdownTableBodyNone">Medición de pH inmediata  </td><td class="markdownTableBodyNone">El pH sí (puerto 3)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Voz <b>Verde</b>  </td><td class="markdownTableBodyNone">Reconoce la alarma activa (el LED deja de parpadear)  </td><td class="markdownTableBodyNone">Sí (puerto 4)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Gesto <b>punch</b>  </td><td class="markdownTableBodyNone">Medición inmediata (útil en planta ruidosa)  </td><td class="markdownTableBodyNone">El pH sí  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Gesto <b>flex</b>  </td><td class="markdownTableBodyNone">Muestra el último pH en el LED  </td><td class="markdownTableBodyNone">No  </td></tr>
+</table>
+<p>Semáforo del LED RGB: verde 6,5–9,0 · amarillo a menos de 0,3 del límite · rojo parpadeando fuera de rango sin reconocer · rojo fijo reconocida · azul rápido durante una OTA. Cada detección se ve 1,5 s con su color.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+4. Servidor Debian 12</h1>
+<div class="fragment"><div class="line">sudo mkdir -p /opt/helmo/ota /opt/helmo/servidor &amp;&amp; sudo chown -R $USER /opt/helmo</div>
+<div class="line">cp servidor/* /opt/helmo/servidor/ &amp;&amp; cd /opt/helmo/servidor</div>
+<div class="line">python3 -m venv /opt/helmo/venv &amp;&amp; /opt/helmo/venv/bin/pip install -r requirements.txt</div>
+<div class="line">cp env.ejemplo .env    # pon tu TTN_APP_ID y una API key con permiso de leer y escribir downlinks</div>
+<div class="line"> </div>
+<div class="line"># Llaves (una sola vez). La privada queda con permisos 600: haz una copia de seguridad offline.</div>
+<div class="line">/opt/helmo/venv/bin/python firmar_firmware.py llaves \</div>
+<div class="line">    --header ~/helmo-ota-hmi/firmware/helmo_nodo_ph/clave_publica_ota.h</div>
+</div><!-- fragment --><p><b>TTN:</b> en <em>Applications → Payload formatters → Uplink</em> y <em>Downlink</em> pega <span class="tt"><a class="el" href="ttn__formatter_8js.html">ttn_formatter.js</a></span>.</p>
+<p><b>Distribución de imágenes:</b> instala Caddy (<span class="tt">sudo apt install caddy</span>), copia <span class="tt">Caddyfile</span> a <span class="tt">/etc/caddy/Caddyfile</span> y apunta el agente ngrok a <span class="tt"><a href="http://localhost:8088">http://localhost:8088</a></span>. Grafana sigue en <span class="tt">/</span> y las imágenes firmadas en <span class="tt">/ota/</span>, con un solo túnel. En <span class="tt">secretos.h</span> usa <span class="tt"><a class="el" href="secretos_8ejemplo_8h.html#a92fe9a58d2759282596ab0103e312d55" title="URL base del servidor de distribución OTA, sin barra al final.">OTA_BASE_URL</a> "<a href="https://TU-DOMINIO.ngrok-free.app/ota">https://TU-DOMINIO.ngrok-free.app/ota</a>"</span>. En laboratorio usa <span class="tt"><a href="http://IP-DEL-DEBIAN:8088/ota">http://IP-DEL-DEBIAN:8088/ota</a></span>.</p>
+<p><b>Servicio de orquestación:</b> </p><div class="fragment"><div class="line">sudo cp helmo-ota.service /etc/systemd/system/ &amp;&amp; sudo systemctl enable --now helmo-ota</div>
+<div class="line">journalctl -u helmo-ota -f</div>
+</div><!-- fragment --><p> Usa su propia conexión MQTT saliente, así que no hay que tocar helmo-bridge. Si helmo-bridge ya decodificaba el puerto 3 con 6 bytes, el formateador nuevo sigue entregando <span class="tt">node_id</span>, <span class="tt">ph</span> y <span class="tt">voltaje</span> con los mismos nombres.</p>
+<p>Colecciones nuevas en <span class="tt">helmo_database</span>: <span class="tt">nodos</span> (versión y estado por nodo), <span class="tt">ota_trabajos</span> (cada orden y su resultado) y <span class="tt">hmi_eventos</span> (voz y gestos). Puedes graficarlas en Grafana.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+5. Publicar y ordenar una actualización</h1>
+<div class="fragment"><div class="line"># En el .ino: FW_MINOR 1  (2.0.0 → 2.1.0; el LED pasa de lento a triple destello)</div>
+<div class="line"># Arduino IDE: Sketch → Export Compiled Binary → usa helmo_nodo_ph.ino.bin (NO el .merged.bin)</div>
+<div class="line"> </div>
+<div class="line">/opt/helmo/venv/bin/python firmar_firmware.py firmar --bin helmo_nodo_ph.ino.bin --version 2.1.0</div>
+<div class="line">/opt/helmo/venv/bin/python firmar_firmware.py verificar --manifiesto /opt/helmo/ota/ph-node/manifest.json</div>
+<div class="line">/opt/helmo/venv/bin/python helmo_ota.py ordenar --dev ph-lab-01 --version 2.1.0</div>
+<div class="line">/opt/helmo/venv/bin/python helmo_ota.py estado          # o: campana --max 1 para todos los nodos</div>
+</div><!-- fragment --><p> <span class="tt">--dev</span> es el <em>End device ID</em> de TTN. El nodo recibe la orden después de su siguiente uplink (máximo un intervalo).</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+6. Pruebas para la rúbrica</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Prueba  </th><th class="markdownTableHeadNone">Cómo provocarla  </th><th class="markdownTableHeadNone">Resultado esperado  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Actualización normal  </td><td class="markdownTableBodyNone">Ordenar 2.1.0  </td><td class="markdownTableBodyNone">LED cambia de patrón; puerto 5 <span class="tt">EXITO</span> v2.1.0  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Corte de red  </td><td class="markdownTableBodyNone">Apagar el hotspot a mitad de la descarga  </td><td class="markdownTableBodyNone"><span class="tt">ERROR / interrumpida</span>; sigue en 2.0.0  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Imagen alterada  </td><td class="markdownTableBodyNone">Cambiar un byte del <span class="tt">.bin</span> publicado  </td><td class="markdownTableBodyNone"><span class="tt">ERROR / sha256</span>; sigue en 2.0.0  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Firma falsa  </td><td class="markdownTableBodyNone">Firmar con otra llave (<span class="tt">llaves --dir otra</span>)  </td><td class="markdownTableBodyNone"><span class="tt">ERROR / firma_invalida</span>, antes de tocar la flash  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Downgrade  </td><td class="markdownTableBodyNone">Ordenar una versión menor (con <span class="tt">--forzar</span> al firmar)  </td><td class="markdownTableBodyNone"><span class="tt">ERROR / version</span> o <span class="tt">YA_AL_DIA</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Rollback  </td><td class="markdownTableBodyNone">Publicar una versión con <span class="tt"><a class="el" href="secretos_8ejemplo_8h.html#a63fd113835ed6078cb38b5a9e28a8fa5" title="DevEUI.">devEui</a></span> incorrecto (no puede unirse)  </td><td class="markdownTableBodyNone">Tras 15 min vuelve a la anterior y reporta <span class="tt">ROLLBACK</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Voz / gesto  </td><td class="markdownTableBodyNone">Decir "Rojo" cerca del Nano  </td><td class="markdownTableBodyNone">LED rojo 1,5 s; en MongoDB <span class="tt">hmi_eventos</span> aparece el incidente  </td></tr>
+</table>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+7. Problemas frecuentes</h1>
+<ul>
+<li><b><span class="tt">'Radio' was not declared</span></b> al compilar el nodo: cambia <span class="tt">Radio.IrqProcess();</span> por <span class="tt">LoRaWAN.sleep(loraWanClass);</span> (algunas versiones de la librería Heltec no exponen <span class="tt">Radio</span>). Si con eso se pierden eventos del HMI, avísame.</li>
+<li><b><span class="tt">undefined reference ... MicroInterpreter</span></b> en el Nano: exporta otra vez la librería en Edge Impulse con el <b>EON Compiler desactivado</b> (así incluye el intérprete completo).</li>
+<li><b><span class="tt">AllocateTensors</span> falla</b>: sube <span class="tt"><a class="el" href="helmo__hmi__nano_8ino.html#a82d82c07b3f1c033d474f69c204ab8c2">TAM_ARENA_GESTOS</a></span> a <span class="tt">16 * 1024</span>.</li>
+<li><b><span class="tt">Update.begin</span> falla / <span class="tt">tamano</span></b>: revisa el esquema de particiones del paso 2.</li>
+<li><b><span class="tt">ERROR / wifi</span></b>: el nodo no alcanza el hotspot; acerca el celular del técnico o usa la red 2 de <span class="tt">secretos.h</span>.</li>
+<li><b><span class="tt">ERROR / manifiesto_http</span></b>: prueba la URL de <span class="tt">OTA_BASE_URL/ph-node/manifest.json</span> desde el navegador del celular conectado al mismo hotspot.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+Archivos</h1>
+<div class="fragment"><div class="line">firmware/helmo_nodo_ph/      helmo_nodo_ph.ino, secretos.ejemplo.h, clave_publica_ota.h</div>
+<div class="line">                             (+ tu secretos.h, que no se comparte)</div>
+<div class="line">firmware/helmo_hmi_nano/     helmo_hmi_nano.ino  (+ tu model.h)</div>
+<div class="line">servidor/                    ttn_formatter.js, firmar_firmware.py, helmo_ota.py,</div>
+<div class="line">                             Caddyfile, helmo-ota.service, env.ejemplo, requirements.txt</div>
+<div class="line">Doxyfile                     configuración de la documentación</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+8. Documentación con Doxygen</h1>
+<div class="fragment"><div class="line">doxygen Doxyfile        # desde la carpeta helmo-ota-hmi</div>
+</div><!-- fragment --><p> La documentación queda en <span class="tt">docs/html/index.html</span>. El <span class="tt">Doxyfile</span> excluye <span class="tt">secretos.h</span>, <span class="tt">servidor/.env</span>, la carpeta <span class="tt">servidor/llaves</span>, los <span class="tt">.pem</span> y el <span class="tt">model.h</span> de gestos, así que la documentación no contiene llaves ni contraseñas.</p>
+<p>Para comentar funciones nuevas, escribe <span class="tt">/**</span> y pulsa Enter encima de la función (extensión <em>Doxygen Documentation Generator</em> de VS Code). En Python, empieza el docstring con <span class="tt">"""!</span>. </p>
+</div></div><!-- PageDoc -->
+<a href="doxygen_crawl.html"></a>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

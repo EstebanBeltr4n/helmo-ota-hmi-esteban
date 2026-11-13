@@ -1,0 +1,2868 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HELMO: Referencia del archivo firmware/helmo_nodo_ph/helmo_nodo_ph.ino</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HELMO<span id="projectnumber">&#160;2.0.0</span>
+   </div>
+   <div id="projectbrief">Nodo de pH con OTA híbrida e interfaz de voz y gestos</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('helmo__nodo__ph_8ino.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo helmo_nodo_ph.ino</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>HELMO · Firmware 1 de 2: nodo de pH con LoRaWAN Clase A, OTA híbrida segura y enlace HMI.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;LoRaWan_APP.h&quot;</code><br />
+<code>#include &lt;WiFi.h&gt;</code><br />
+<code>#include &lt;WiFiClientSecure.h&gt;</code><br />
+<code>#include &lt;HTTPClient.h&gt;</code><br />
+<code>#include &lt;Update.h&gt;</code><br />
+<code>#include &lt;ArduinoJson.h&gt;</code><br />
+<code>#include &lt;Preferences.h&gt;</code><br />
+<code>#include &quot;esp_ota_ops.h&quot;</code><br />
+<code>#include &quot;esp_partition.h&quot;</code><br />
+<code>#include &quot;mbedtls/sha256.h&quot;</code><br />
+<code>#include &quot;mbedtls/pk.h&quot;</code><br />
+<code>#include &quot;mbedtls/base64.h&quot;</code><br />
+<code>#include &quot;secretos.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="clave__publica__ota_8h_source.html">clave_publica_ota.h</a>&quot;</code><br />
+</div>
+<p><a href="helmo__nodo__ph_8ino_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:OrdenOTA" id="r_OrdenOTA"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_orden_o_t_a.html">OrdenOTA</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orden de actualización recibida por downlink (trabajo y versión M.m.p).  <a href="struct_orden_o_t_a.html#details">Más...</a><br /></td></tr>
+<tr class="memitem:EventoHMI" id="r_EventoHMI"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_evento_h_m_i.html">EventoHMI</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evento de voz o gesto pendiente de enviar por el puerto 4.  <a href="struct_evento_h_m_i.html#details">Más...</a><br /></td></tr>
+<tr class="memitem:ReglaHMI" id="r_ReglaHMI"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_regla_h_m_i.html">ReglaHMI</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regla que asocia una palabra o gesto con una acción del nodo.  <a href="struct_regla_h_m_i.html#details">Más...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:af8e2f31f9628652f0bb880cafc6975f9" id="r_af8e2f31f9628652f0bb880cafc6975f9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af8e2f31f9628652f0bb880cafc6975f9">FW_MAJOR</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:ac544ea0164f2964bd0e44b91e01dcffd" id="r_ac544ea0164f2964bd0e44b91e01dcffd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac544ea0164f2964bd0e44b91e01dcffd">FW_MINOR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a7ff45bb1ae8d31881298089b96876acc" id="r_a7ff45bb1ae8d31881298089b96876acc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7ff45bb1ae8d31881298089b96876acc">FW_PATCH</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:acbc93d9ee5b48670251803d45ccfb9cb" id="r_acbc93d9ee5b48670251803d45ccfb9cb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acbc93d9ee5b48670251803d45ccfb9cb">FW_PRODUCTO</a>&#160;&#160;&#160;&quot;helmo-ph-node&quot;</td></tr>
+<tr class="memitem:a6d4f73356b827987981fbf6669ca8d83" id="r_a6d4f73356b827987981fbf6669ca8d83"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6d4f73356b827987981fbf6669ca8d83">FW_CANAL</a>&#160;&#160;&#160;&quot;ph-node&quot;</td></tr>
+<tr class="memitem:ae19bfd2ea75b7ddfc0c9e520240ab733" id="r_ae19bfd2ea75b7ddfc0c9e520240ab733"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae19bfd2ea75b7ddfc0c9e520240ab733">NODE_ID</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:acdfa2fdb00afc9a61cabd50ec04b0296" id="r_acdfa2fdb00afc9a61cabd50ec04b0296"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acdfa2fdb00afc9a61cabd50ec04b0296">ADC_PH_PIN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a05306f76e4fda2f326f5b17564cce4cb" id="r_a05306f76e4fda2f326f5b17564cce4cb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a05306f76e4fda2f326f5b17564cce4cb">MOSFET_PIN</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memitem:ab4553be4db9860d940f81d7447173b2f" id="r_ab4553be4db9860d940f81d7447173b2f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab4553be4db9860d940f81d7447173b2f">LED_PIN</a>&#160;&#160;&#160;35</td></tr>
+<tr class="memitem:ac703bc353410084def1ae65fc54b5dd3" id="r_ac703bc353410084def1ae65fc54b5dd3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac703bc353410084def1ae65fc54b5dd3">HMI_HABILITADO</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:ab1a4c08c09caa0e45fb78ece466d9724" id="r_ab1a4c08c09caa0e45fb78ece466d9724"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab1a4c08c09caa0e45fb78ece466d9724">HMI_RX_PIN</a>&#160;&#160;&#160;47</td></tr>
+<tr class="memitem:a054052ac97c20683d1f9dd3f6a4419b5" id="r_a054052ac97c20683d1f9dd3f6a4419b5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a054052ac97c20683d1f9dd3f6a4419b5">HMI_TX_PIN</a>&#160;&#160;&#160;48</td></tr>
+<tr class="memitem:a9ac7baa5705c3f086ca8621972900e0d" id="r_a9ac7baa5705c3f086ca8621972900e0d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9ac7baa5705c3f086ca8621972900e0d">HMI_BAUD</a>&#160;&#160;&#160;115200</td></tr>
+<tr class="memitem:a09f9f64f27895f9937a26c91059a3cd5" id="r_a09f9f64f27895f9937a26c91059a3cd5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a09f9f64f27895f9937a26c91059a3cd5">HMI_TIMEOUT_MS</a>&#160;&#160;&#160;30000</td></tr>
+<tr class="memitem:ac96d39b9e2dccaa206865ddcc5fd8636" id="r_ac96d39b9e2dccaa206865ddcc5fd8636"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac96d39b9e2dccaa206865ddcc5fd8636">PH4_BUFFER_VALUE</a>&#160;&#160;&#160;4.00</td></tr>
+<tr class="memitem:af58f7b4b52a8e5bba8ee2b0c72715041" id="r_af58f7b4b52a8e5bba8ee2b0c72715041"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af58f7b4b52a8e5bba8ee2b0c72715041">PH7_BUFFER_VALUE</a>&#160;&#160;&#160;7.00</td></tr>
+<tr class="memitem:a01154aabb0833eddc3177b78b1424889" id="r_a01154aabb0833eddc3177b78b1424889"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a01154aabb0833eddc3177b78b1424889">PH4_VOLTAGE</a>&#160;&#160;&#160;2.560</td></tr>
+<tr class="memitem:aae98c7a8ee1313d9299c64fb504d452f" id="r_aae98c7a8ee1313d9299c64fb504d452f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aae98c7a8ee1313d9299c64fb504d452f">PH7_VOLTAGE</a>&#160;&#160;&#160;2.250</td></tr>
+<tr class="memitem:a9fed137b8c562b8d8cea6f82383ce3e5" id="r_a9fed137b8c562b8d8cea6f82383ce3e5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9fed137b8c562b8d8cea6f82383ce3e5">PH_M</a>&#160;&#160;&#160;((<a class="el" href="#af58f7b4b52a8e5bba8ee2b0c72715041">PH7_BUFFER_VALUE</a> - <a class="el" href="#ac96d39b9e2dccaa206865ddcc5fd8636">PH4_BUFFER_VALUE</a>) / (<a class="el" href="#aae98c7a8ee1313d9299c64fb504d452f">PH7_VOLTAGE</a> - <a class="el" href="#a01154aabb0833eddc3177b78b1424889">PH4_VOLTAGE</a>))</td></tr>
+<tr class="memitem:a1bc980977b9b44013b9858e34fe964cc" id="r_a1bc980977b9b44013b9858e34fe964cc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1bc980977b9b44013b9858e34fe964cc">PH_B</a>&#160;&#160;&#160;(<a class="el" href="#af58f7b4b52a8e5bba8ee2b0c72715041">PH7_BUFFER_VALUE</a> - (<a class="el" href="#a9fed137b8c562b8d8cea6f82383ce3e5">PH_M</a> * <a class="el" href="#aae98c7a8ee1313d9299c64fb504d452f">PH7_VOLTAGE</a>))</td></tr>
+<tr class="memitem:a14a6bc4b06c8b1fb9ad9a881f2ba54ea" id="r_a14a6bc4b06c8b1fb9ad9a881f2ba54ea"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a14a6bc4b06c8b1fb9ad9a881f2ba54ea">PH_LIMITE_MIN</a>&#160;&#160;&#160;6.5</td></tr>
+<tr class="memitem:ab761d1c8d3d438fcd08a74b7cf654f4d" id="r_ab761d1c8d3d438fcd08a74b7cf654f4d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab761d1c8d3d438fcd08a74b7cf654f4d">PH_LIMITE_MAX</a>&#160;&#160;&#160;9.0</td></tr>
+<tr class="memitem:aa2654b52713e50db3a5d2a66b52648e5" id="r_aa2654b52713e50db3a5d2a66b52648e5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa2654b52713e50db3a5d2a66b52648e5">PH_MARGEN_AVISO</a>&#160;&#160;&#160;0.3</td></tr>
+<tr class="memitem:ad892b4e6b7ae14ab4b1b98b38d652fcd" id="r_ad892b4e6b7ae14ab4b1b98b38d652fcd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad892b4e6b7ae14ab4b1b98b38d652fcd">INTERVALO_TX_MS</a>&#160;&#160;&#160;300000UL</td></tr>
+<tr class="memitem:a90e0cdffbdcac7923f48b1f6ff2e9fbf" id="r_a90e0cdffbdcac7923f48b1f6ff2e9fbf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a90e0cdffbdcac7923f48b1f6ff2e9fbf">SEPARACION_MIN_TX_MS</a>&#160;&#160;&#160;20000UL</td></tr>
+<tr class="memitem:a4735ad9aef99f8584afd945f39260954" id="r_a4735ad9aef99f8584afd945f39260954"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4735ad9aef99f8584afd945f39260954">WIFI_TIMEOUT_MS</a>&#160;&#160;&#160;30000UL</td></tr>
+<tr class="memitem:ad3e088c527eabaddc9a584406e519dc8" id="r_ad3e088c527eabaddc9a584406e519dc8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad3e088c527eabaddc9a584406e519dc8">OTA_TIMEOUT_DATOS_MS</a>&#160;&#160;&#160;10000UL</td></tr>
+<tr class="memitem:a0669fefc6c5ad033cb50dcd27c1a87b1" id="r_a0669fefc6c5ad033cb50dcd27c1a87b1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0669fefc6c5ad033cb50dcd27c1a87b1">PRUEBA_TIMEOUT_MS</a>&#160;&#160;&#160;(15UL * 60UL * 1000UL)</td></tr>
+<tr class="memitem:a8bb220541afbb9343d6a709bf57f0ced" id="r_a8bb220541afbb9343d6a709bf57f0ced"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8bb220541afbb9343d6a709bf57f0ced">PRUEBA_MAX_ARRANQUES</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:a82fdf2d312c986a3ba6cb7fa43c1720d" id="r_a82fdf2d312c986a3ba6cb7fa43c1720d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a82fdf2d312c986a3ba6cb7fa43c1720d">PUERTO_PH</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:ad2475d0d2efc11c4032bb685f1f3f8f5" id="r_ad2475d0d2efc11c4032bb685f1f3f8f5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad2475d0d2efc11c4032bb685f1f3f8f5">PUERTO_HMI</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memitem:af2323a20edd4a7b5a7ed824df1bf0ac1" id="r_af2323a20edd4a7b5a7ed824df1bf0ac1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af2323a20edd4a7b5a7ed824df1bf0ac1">PUERTO_OTA</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memitem:af040d2846a5490cc30372a81d079ebad" id="r_af040d2846a5490cc30372a81d079ebad"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af040d2846a5490cc30372a81d079ebad">PUERTO_CMD</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memitem:a1124aab05de59d54f7ab5d320707bb8f" id="r_a1124aab05de59d54f7ab5d320707bb8f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1124aab05de59d54f7ab5d320707bb8f">COLA_HMI_MAX</a>&#160;&#160;&#160;4</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumeraciones</h2></td></tr>
+<tr class="memitem:a19a0aa82cb62351da91f5c3a6029c064" id="r_a19a0aa82cb62351da91f5c3a6029c064"><td class="memItemLeft"><a class="el" href="#a19a0aa82cb62351da91f5c3a6029c064">enum </a>&#160;</td><td class="memItemRight">: uint8_t { <a class="el" href="#a19a0aa82cb62351da91f5c3a6029c064a104bbdedc1a2846f3a01e1ef3132a3e7">CMD_OTA_WIFI</a> = 0x01
+, <a class="el" href="#a19a0aa82cb62351da91f5c3a6029c064aa9b20708d7ed68c43026add6262fe87b">CMD_INTERVALO</a> = 0x02
+, <a class="el" href="#a19a0aa82cb62351da91f5c3a6029c064abe978d2adf0795efa83786e2862d7ad2">CMD_MEDIR_YA</a> = 0x03
+, <a class="el" href="#a19a0aa82cb62351da91f5c3a6029c064a188afa202aacf132f62607e618b1d52d">CMD_REINICIAR</a> = 0x04
+ }</td></tr>
+<tr class="memitem:a9947d000d82e7f01c2f2131524d934ef" id="r_a9947d000d82e7f01c2f2131524d934ef"><td class="memItemLeft"><a class="el" href="#a9947d000d82e7f01c2f2131524d934ef">enum </a>&#160;</td><td class="memItemRight">: uint8_t { <a class="el" href="#a9947d000d82e7f01c2f2131524d934efa88fe94841a0c5971c9ce2a749af9e09e">OTA_EXITO</a> = 1
+, <a class="el" href="#a9947d000d82e7f01c2f2131524d934efa7eb76691c3d7d209c55b65a9af11aa45">OTA_ERROR</a> = 2
+, <a class="el" href="#a9947d000d82e7f01c2f2131524d934efaedf1c963d9b8f812bbe14fd2e9dc1132">OTA_ROLLBACK</a> = 3
+, <a class="el" href="#a9947d000d82e7f01c2f2131524d934efa50b9c0696510a91c929d13d43c7667a0">OTA_YA_AL_DIA</a> = 4
+ }</td></tr>
+<tr class="memitem:a8b279ba4bbea0bfdc87fd7e0794ffa6f" id="r_a8b279ba4bbea0bfdc87fd7e0794ffa6f"><td class="memItemLeft"><a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6f">enum </a>&#160;</td><td class="memItemRight">: uint8_t { <br />
+&#160;&#160;<a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa6f70076a8d38d0f002bfb46f801fcab2">E_NINGUNO</a> = 0
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa4c56f6435711b3b53f82040bcc2aa640">E_WIFI</a> = 1
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fae865feac3e93d35ed3f06c8c18df69e2">E_MANIF_HTTP</a> = 2
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6faa478e28f210b9869a0a08e3cf32226d7">E_MANIF_JSON</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fabad939937ff03ed9126de0742236cfc8">E_PRODUCTO</a> = 4
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6faf292ef15e3e11ac7ec5d0772ee9745c4">E_VERSION</a> = 5
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa78f3bd1d9df71ce0d43d9ad4bf6970e2">E_FIRMA</a> = 6
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa41a089bd91c20d175570f4a3334d9acf">E_DESCARGA_HTTP</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa076a01f2f2d2590020ad8c0464a3810d">E_TAMANO</a> = 8
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fac87da8abc3f3eac1659e95104b569bbb">E_INTERRUMPIDA</a> = 9
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa1ca7007157f7f4a25ec43134d929d955">E_FLASH</a> = 10
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6faf762113bd0ba8400d13646b784433794">E_SHA256</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa77958414799fcaf2f71346d26318c3e0">E_IMAGEN</a> = 12
+, <a class="el" href="#a8b279ba4bbea0bfdc87fd7e0794ffa6fa6fa48e2d6ae8e7a26cf8fa73a2b49bef">E_OCUPADO</a> = 13
+<br />
+ }</td></tr>
+<tr class="memitem:aa038beed920a459858bb253ecf1919ce" id="r_aa038beed920a459858bb253ecf1919ce"><td class="memItemLeft"><a class="el" href="#aa038beed920a459858bb253ecf1919ce">enum </a>&#160;</td><td class="memItemRight">: uint8_t { <a class="el" href="#aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426">ACC_INCIDENTE</a> = 1
+, <a class="el" href="#aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4">ACC_MEDIR</a> = 2
+, <a class="el" href="#aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a">ACC_RECONOCER</a> = 3
+, <a class="el" href="#aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112">ACC_MOSTRAR</a> = 4
+ }</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:abad10e43e1fdcd219f9e7e7e10b4654f" id="r_abad10e43e1fdcd219f9e7e7e10b4654f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abad10e43e1fdcd219f9e7e7e10b4654f">escribirLED</a> (bool on)</td></tr>
+<tr class="memdesc:abad10e43e1fdcd219f9e7e7e10b4654f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enciende o apaga el LED blanco y recuerda su estado.  <br /></td></tr>
+<tr class="memitem:afd0761020b2d358e2601ae87568c0237" id="r_afd0761020b2d358e2601ae87568c0237"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afd0761020b2d358e2601ae87568c0237">actualizarLED</a> ()</td></tr>
+<tr class="memdesc:afd0761020b2d358e2601ae87568c0237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avanza el patrón de parpadeo que identifica la versión, sin bloquear el bucle.  <br /></td></tr>
+<tr class="memitem:ad76681da26546f7d18dadc05d8323b44" id="r_ad76681da26546f7d18dadc05d8323b44"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad76681da26546f7d18dadc05d8323b44">versionNum</a> (uint8_t M, uint8_t m, uint8_t p)</td></tr>
+<tr class="memdesc:ad76681da26546f7d18dadc05d8323b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empaqueta una versión semántica en un entero comparable.  <br /></td></tr>
+<tr class="memitem:aabd563841bd491359187dbf2a89d509f" id="r_aabd563841bd491359187dbf2a89d509f"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aabd563841bd491359187dbf2a89d509f">versionActual</a> ()</td></tr>
+<tr class="memdesc:aabd563841bd491359187dbf2a89d509f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versión del firmware en ejecución como entero comparable.  <br /></td></tr>
+<tr class="memitem:a0c851908c26a9e9c7885e8f339298f2f" id="r_a0c851908c26a9e9c7885e8f339298f2f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c851908c26a9e9c7885e8f339298f2f">parsearVersion</a> (const char *s, uint8_t &amp;M, uint8_t &amp;m, uint8_t &amp;p)</td></tr>
+<tr class="memdesc:a0c851908c26a9e9c7885e8f339298f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convierte un texto "M.m.p" en sus tres componentes.  <br /></td></tr>
+<tr class="memitem:a89a8a38ada7c169efa639db9c5db39ac" id="r_a89a8a38ada7c169efa639db9c5db39ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a89a8a38ada7c169efa639db9c5db39ac">sha256Texto</a> (const String &amp;texto, uint8_t salida[32])</td></tr>
+<tr class="memdesc:a89a8a38ada7c169efa639db9c5db39ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcula el SHA-256 de un texto.  <br /></td></tr>
+<tr class="memitem:a3e8b7ab432a3ed0610402aac954a4733" id="r_a3e8b7ab432a3ed0610402aac954a4733"><td class="memItemLeft">String&#160;</td><td class="memItemRight"><a class="el" href="#a3e8b7ab432a3ed0610402aac954a4733">aHex</a> (const uint8_t *h, size_t n)</td></tr>
+<tr class="memdesc:a3e8b7ab432a3ed0610402aac954a4733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convierte bytes a texto hexadecimal en minúsculas.  <br /></td></tr>
+<tr class="memitem:a64ab7cd05d980f9454a0d9cb68b4c329" id="r_a64ab7cd05d980f9454a0d9cb68b4c329"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a64ab7cd05d980f9454a0d9cb68b4c329">esHex64</a> (const char *h)</td></tr>
+<tr class="memdesc:a64ab7cd05d980f9454a0d9cb68b4c329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comprueba que un texto sea un hash SHA-256 en hexadecimal (64 caracteres).  <br /></td></tr>
+<tr class="memitem:a74ac75ff6da69a90c5f407178053ad61" id="r_a74ac75ff6da69a90c5f407178053ad61"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a74ac75ff6da69a90c5f407178053ad61">verificarFirma</a> (const String &amp;mensaje, const char *firmaB64)</td></tr>
+<tr class="memdesc:a74ac75ff6da69a90c5f407178053ad61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica la firma ECDSA P-256 del manifiesto con la clave pública de HELMO.  <br /></td></tr>
+<tr class="memitem:acd0b3279ef6a3d5e54a1090125e6b335" id="r_acd0b3279ef6a3d5e54a1090125e6b335"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acd0b3279ef6a3d5e54a1090125e6b335">enviarHMI</a> (const String &amp;linea)</td></tr>
+<tr class="memdesc:acd0b3279ef6a3d5e54a1090125e6b335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envía una línea de texto al módulo HMI por UART (Serial1).  <br /></td></tr>
+<tr class="memitem:aab1e14dc66a47bb3b21568140bc1e24d" id="r_aab1e14dc66a47bb3b21568140bc1e24d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aab1e14dc66a47bb3b21568140bc1e24d">enviarPHaHMI</a> ()</td></tr>
+<tr class="memdesc:aab1e14dc66a47bb3b21568140bc1e24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envía al HMI el último pH, su estado de semáforo y si la alarma fue reconocida.  <br /></td></tr>
+<tr class="memitem:abb4d593e078886ec114a105250554c90" id="r_abb4d593e078886ec114a105250554c90"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abb4d593e078886ec114a105250554c90">hmiConectado</a> ()</td></tr>
+<tr class="memdesc:abb4d593e078886ec114a105250554c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indica si el módulo HMI respondió en los últimos HMI_TIMEOUT_MS.  <br /></td></tr>
+<tr class="memitem:af39389373bc1641a150ddea46fb8c530" id="r_af39389373bc1641a150ddea46fb8c530"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af39389373bc1641a150ddea46fb8c530">encolarEventoHMI</a> (uint8_t tipo, uint8_t codigo, uint8_t conf, uint8_t accion)</td></tr>
+<tr class="memdesc:af39389373bc1641a150ddea46fb8c530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guarda un evento de voz o gesto para enviarlo por el puerto 4.  <br /></td></tr>
+<tr class="memitem:a8db2d45a81dc76feb8a5b8a9c3a7c9e8" id="r_a8db2d45a81dc76feb8a5b8a9c3a7c9e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8db2d45a81dc76feb8a5b8a9c3a7c9e8">procesarLineaHMI</a> (char *linea)</td></tr>
+<tr class="memdesc:a8db2d45a81dc76feb8a5b8a9c3a7c9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpreta un mensaje del HMI (HOLA, PING o EVT) y ejecuta la acción de REGLAS_HMI.  <br /></td></tr>
+<tr class="memitem:a722f010be8f8c3da18857929a27ce72f" id="r_a722f010be8f8c3da18857929a27ce72f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a722f010be8f8c3da18857929a27ce72f">atenderHMI</a> ()</td></tr>
+<tr class="memdesc:a722f010be8f8c3da18857929a27ce72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lee el UART del HMI sin bloquear y procesa cada línea completa.  <br /></td></tr>
+<tr class="memitem:a41a762067a4024d2e7536a3ac30db520" id="r_a41a762067a4024d2e7536a3ac30db520"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41a762067a4024d2e7536a3ac30db520">energizarSensorPH</a> (bool on)</td></tr>
+<tr class="memdesc:a41a762067a4024d2e7536a3ac30db520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alimenta el sensor de pH por el MOSFET; al encender espera 3 s de estabilización.  <br /></td></tr>
+<tr class="memitem:aaf35d4ff976845a611b2ac5bbec98516" id="r_aaf35d4ff976845a611b2ac5bbec98516"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aaf35d4ff976845a611b2ac5bbec98516">leerVoltajePHFiltrado</a> ()</td></tr>
+<tr class="memdesc:aaf35d4ff976845a611b2ac5bbec98516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toma 10 lecturas del ADC, descarta los extremos y promedia las 6 centrales.  <br /></td></tr>
+<tr class="memitem:a0421b611bfe1d714f9b324f158e02e46" id="r_a0421b611bfe1d714f9b324f158e02e46"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a0421b611bfe1d714f9b324f158e02e46">clasificarPH</a> (float ph)</td></tr>
+<tr class="memdesc:a0421b611bfe1d714f9b324f158e02e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clasifica el pH según la norma de agua potable.  <br /></td></tr>
+<tr class="memitem:a338fd052aead235ac9c069baa0bdfa02" id="r_a338fd052aead235ac9c069baa0bdfa02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a338fd052aead235ac9c069baa0bdfa02">prepararUplinkPH</a> ()</td></tr>
+<tr class="memdesc:a338fd052aead235ac9c069baa0bdfa02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mide el pH, actualiza el semáforo y arma el payload del puerto 3.  <br /></td></tr>
+<tr class="memitem:a53a88d12c89426707ef315c4a719fd66" id="r_a53a88d12c89426707ef315c4a719fd66"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a53a88d12c89426707ef315c4a719fd66">prepararUplinkHMI</a> ()</td></tr>
+<tr class="memdesc:a53a88d12c89426707ef315c4a719fd66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saca el evento HMI más antiguo de la cola y arma el payload del puerto 4.  <br /></td></tr>
+<tr class="memitem:aa9af7a93b3fca241529b502c357ee3ff" id="r_aa9af7a93b3fca241529b502c357ee3ff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa9af7a93b3fca241529b502c357ee3ff">programarReporteOTA</a> (uint8_t trabajo, uint8_t resultado, uint8_t detalle)</td></tr>
+<tr class="memdesc:aa9af7a93b3fca241529b502c357ee3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deja pendiente un reporte de resultado OTA para el puerto 5.  <br /></td></tr>
+<tr class="memitem:a9b385760e057d0d0dbd0811695505b93" id="r_a9b385760e057d0d0dbd0811695505b93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b385760e057d0d0dbd0811695505b93">prepararUplinkOTA</a> ()</td></tr>
+<tr class="memdesc:a9b385760e057d0d0dbd0811695505b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arma el payload del puerto 5 con el resultado del trabajo OTA.  <br /></td></tr>
+<tr class="memitem:a5642edb4993dd65581c2015608f0abb3" id="r_a5642edb4993dd65581c2015608f0abb3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5642edb4993dd65581c2015608f0abb3">verifyRollbackLater</a> ()</td></tr>
+<tr class="memdesc:a5642edb4993dd65581c2015608f0abb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evita que el núcleo Arduino confirme la imagen al arrancar.  <br /></td></tr>
+<tr class="memitem:a2821cf94371c7256f9a449cb2a2ed983" id="r_a2821cf94371c7256f9a449cb2a2ed983"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2821cf94371c7256f9a449cb2a2ed983">revertirFirmware</a> (const char *motivo)</td></tr>
+<tr class="memdesc:a2821cf94371c7256f9a449cb2a2ed983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vuelve a la partición anterior (rollback) y reinicia.  <br /></td></tr>
+<tr class="memitem:a122396fd26e89a2e58c303f997d0e280" id="r_a122396fd26e89a2e58c303f997d0e280"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a122396fd26e89a2e58c303f997d0e280">revisarArranqueTrasOTA</a> ()</td></tr>
+<tr class="memdesc:a122396fd26e89a2e58c303f997d0e280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Al arrancar, detecta si viene de una OTA: inicia el periodo de prueba, cuenta reinicios o reporta un rollback ya ocurrido.  <br /></td></tr>
+<tr class="memitem:a67b2bff340f0bad7c9781351e00b7b85" id="r_a67b2bff340f0bad7c9781351e00b7b85"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a67b2bff340f0bad7c9781351e00b7b85">confirmarFirmware</a> ()</td></tr>
+<tr class="memdesc:a67b2bff340f0bad7c9781351e00b7b85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marca la versión nueva como válida tras el Join Accept y programa el reporte EXITO.  <br /></td></tr>
+<tr class="memitem:a9704e737f4e9ac284e27d076652a8b33" id="r_a9704e737f4e9ac284e27d076652a8b33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9704e737f4e9ac284e27d076652a8b33">iniciarHTTP</a> (HTTPClient &amp;http, const String &amp;url)</td></tr>
+<tr class="memdesc:a9704e737f4e9ac284e27d076652a8b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepara un cliente HTTP o HTTPS (para ngrok) con tiempo límite y redirecciones.  <br /></td></tr>
+<tr class="memitem:a2eab09cb15008dc062fddadae0b1d489" id="r_a2eab09cb15008dc062fddadae0b1d489"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2eab09cb15008dc062fddadae0b1d489">conectarWiFiMantenimiento</a> ()</td></tr>
+<tr class="memdesc:a2eab09cb15008dc062fddadae0b1d489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intenta conectarse a las redes de mantenimiento definidas en secretos.h.  <br /></td></tr>
+<tr class="memitem:a41c7fbc84f1a9c7623ce1446bcfa2c53" id="r_a41c7fbc84f1a9c7623ce1446bcfa2c53"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41c7fbc84f1a9c7623ce1446bcfa2c53">apagarWiFi</a> ()</td></tr>
+<tr class="memdesc:a41c7fbc84f1a9c7623ce1446bcfa2c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desconecta y apaga el Wi-Fi para volver al bajo consumo.  <br /></td></tr>
+<tr class="memitem:a8761a5b44a3fe100bc446ed945990723" id="r_a8761a5b44a3fe100bc446ed945990723"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a8761a5b44a3fe100bc446ed945990723">ejecutarOTA</a> (uint8_t trabajo, uint8_t M, uint8_t m, uint8_t p)</td></tr>
+<tr class="memdesc:a8761a5b44a3fe100bc446ed945990723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descarga, verifica e instala una imagen firmada.  <br /></td></tr>
+<tr class="memitem:a6885cf01857423c6f595457c85af5005" id="r_a6885cf01857423c6f595457c85af5005"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6885cf01857423c6f595457c85af5005">procesarOrdenOTA</a> ()</td></tr>
+<tr class="memdesc:a6885cf01857423c6f595457c85af5005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atiende una orden OTA recibida por downlink y programa el reporte del resultado.  <br /></td></tr>
+<tr class="memitem:a6e2e9d342816f59c9530acdf96df5cea" id="r_a6e2e9d342816f59c9530acdf96df5cea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6e2e9d342816f59c9530acdf96df5cea">downLinkDataHandle</a> (McpsIndication_t *ind)</td></tr>
+<tr class="memdesc:a6e2e9d342816f59c9530acdf96df5cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback de la librería Heltec para los downlinks.  <br /></td></tr>
+<tr class="memitem:a384a165c87ab3276d39f00ccfe4c7382" id="r_a384a165c87ab3276d39f00ccfe4c7382"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a384a165c87ab3276d39f00ccfe4c7382">hayUplinkUrgente</a> ()</td></tr>
+<tr class="memdesc:a384a165c87ab3276d39f00ccfe4c7382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indica si hay un reporte OTA, un evento HMI o una medición forzada pendiente.  <br /></td></tr>
+<tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
+<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa pines, UART del HMI, revisión post-OTA, ADC y la pila LoRaWAN.  <br /></td></tr>
+<tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
+<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Máquina de estados LoRaWAN de la librería Heltec + tareas no bloqueantes (LED, HMI, OTA).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1c268dc9266df8ca869c23bd17d1e2ea" id="r_a1c268dc9266df8ca869c23bd17d1e2ea"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a1c268dc9266df8ca869c23bd17d1e2ea">NODO_ALIAS</a> = &quot;ph-lab-01&quot;</td></tr>
+<tr class="memitem:a1b953e2848459f97077a4b5934eba88d" id="r_a1b953e2848459f97077a4b5934eba88d"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a1b953e2848459f97077a4b5934eba88d">nwkSKey</a> [] = { 0x00 }</td></tr>
+<tr class="memitem:ab549925205cd6b1eb713405f28fd5549" id="r_ab549925205cd6b1eb713405f28fd5549"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ab549925205cd6b1eb713405f28fd5549">appSKey</a> [] = { 0x00 }</td></tr>
+<tr class="memitem:ac51020cf74fc68b40d713ebcc11942ca" id="r_ac51020cf74fc68b40d713ebcc11942ca"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac51020cf74fc68b40d713ebcc11942ca">devAddr</a> = 0x00</td></tr>
+<tr class="memitem:aa91520c880940f96fc9321b289b981f6" id="r_aa91520c880940f96fc9321b289b981f6"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa91520c880940f96fc9321b289b981f6">userChannelsMask</a> [6] = { 0xFF00, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }</td></tr>
+<tr class="memitem:a40a635240ce59c6876f12edf7c53fb9d" id="r_a40a635240ce59c6876f12edf7c53fb9d"><td class="memItemLeft">LoRaMacRegion_t&#160;</td><td class="memItemRight"><a class="el" href="#a40a635240ce59c6876f12edf7c53fb9d">loraWanRegion</a> = ACTIVE_REGION</td></tr>
+<tr class="memitem:aeb8a534634667650d536d486b63bffe0" id="r_aeb8a534634667650d536d486b63bffe0"><td class="memItemLeft">DeviceClass_t&#160;</td><td class="memItemRight"><a class="el" href="#aeb8a534634667650d536d486b63bffe0">loraWanClass</a> = CLASS_A</td></tr>
+<tr class="memitem:ad4c3c711ac90884a903a522cfadb3e1e" id="r_ad4c3c711ac90884a903a522cfadb3e1e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad4c3c711ac90884a903a522cfadb3e1e">appTxDutyCycle</a> = <a class="el" href="#ad892b4e6b7ae14ab4b1b98b38d652fcd">INTERVALO_TX_MS</a></td></tr>
+<tr class="memitem:a7aeff5e42a58dd2ff4c2db9fca3ff9b1" id="r_a7aeff5e42a58dd2ff4c2db9fca3ff9b1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7aeff5e42a58dd2ff4c2db9fca3ff9b1">overTheAirActivation</a> = true</td></tr>
+<tr class="memitem:a95b8fd0075361f77f2e75f622c81ae90" id="r_a95b8fd0075361f77f2e75f622c81ae90"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a95b8fd0075361f77f2e75f622c81ae90">loraWanAdr</a> = true</td></tr>
+<tr class="memitem:a44b39cbd4861b567a0f65cd22a98112d" id="r_a44b39cbd4861b567a0f65cd22a98112d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a44b39cbd4861b567a0f65cd22a98112d">keepNet</a> = false</td></tr>
+<tr class="memitem:af49d90b861586d671673360da92c8e20" id="r_af49d90b861586d671673360da92c8e20"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af49d90b861586d671673360da92c8e20">isTxConfirmed</a> = false</td></tr>
+<tr class="memitem:acb42fe695306337dffc3362cc875e15a" id="r_acb42fe695306337dffc3362cc875e15a"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#acb42fe695306337dffc3362cc875e15a">appPort</a> = 3</td></tr>
+<tr class="memitem:ad63561b5e35431d2022752db7e280ff0" id="r_ad63561b5e35431d2022752db7e280ff0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ad63561b5e35431d2022752db7e280ff0">confirmedNbTrials</a> = 4</td></tr>
+<tr class="memitem:a77f70a9d88156f5f7dbdd99bfaaee64e" id="r_a77f70a9d88156f5f7dbdd99bfaaee64e"><td class="memItemLeft">Preferences&#160;</td><td class="memItemRight"><a class="el" href="#a77f70a9d88156f5f7dbdd99bfaaee64e">prefs</a></td></tr>
+<tr class="memitem:a72be7a4b2a2dc05104517a18fd28c652" id="r_a72be7a4b2a2dc05104517a18fd28c652"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a72be7a4b2a2dc05104517a18fd28c652">unido</a> = false</td></tr>
+<tr class="memitem:ac62079a5566ad0f939a20e0d7cce180e" id="r_ac62079a5566ad0f939a20e0d7cce180e"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ac62079a5566ad0f939a20e0d7cce180e">ultimoUplinkMs</a> = 0</td></tr>
+<tr class="memitem:a5ed93babc7ffc27abdec6a59aa9eff4c" id="r_a5ed93babc7ffc27abdec6a59aa9eff4c"><td class="memItemLeft">volatile bool&#160;</td><td class="memItemRight"><a class="el" href="#a5ed93babc7ffc27abdec6a59aa9eff4c">phForzado</a> = false</td></tr>
+<tr class="memitem:aab5218e78243eed6e743cb5b94024704" id="r_aab5218e78243eed6e743cb5b94024704"><td class="memItemLeft">volatile bool&#160;</td><td class="memItemRight"><a class="el" href="#aab5218e78243eed6e743cb5b94024704">reinicioSolicitado</a> = false</td></tr>
+<tr class="memitem:adbe531f8bb9405aa9566fa5b71e53911" id="r_adbe531f8bb9405aa9566fa5b71e53911"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#adbe531f8bb9405aa9566fa5b71e53911">ultimoPH</a> = -1.0</td></tr>
+<tr class="memitem:a2c68025aa1420227edea75b1c3b10221" id="r_a2c68025aa1420227edea75b1c3b10221"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a2c68025aa1420227edea75b1c3b10221">estadoPH</a> = 0</td></tr>
+<tr class="memitem:a2db75aaf3a9a6ace6b65c3a694c425c1" id="r_a2db75aaf3a9a6ace6b65c3a694c425c1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2db75aaf3a9a6ace6b65c3a694c425c1">alertaReconocida</a> = false</td></tr>
+<tr class="memitem:abe80e39016d1a89e3f5a437b653e4a8a" id="r_abe80e39016d1a89e3f5a437b653e4a8a"><td class="memItemLeft"><a class="el" href="struct_orden_o_t_a.html">OrdenOTA</a>&#160;</td><td class="memItemRight"><a class="el" href="#abe80e39016d1a89e3f5a437b653e4a8a">ordenOTA</a> = { false, 0, 0, 0, 0 }</td></tr>
+<tr class="memitem:a907a97d4720d0144917b6bbc922e394c" id="r_a907a97d4720d0144917b6bbc922e394c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a907a97d4720d0144917b6bbc922e394c">reporteOTAPendiente</a> = false</td></tr>
+<tr class="memitem:adf05124a81e0df78b3b1f88dacf50dfb" id="r_adf05124a81e0df78b3b1f88dacf50dfb"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#adf05124a81e0df78b3b1f88dacf50dfb">repTrabajo</a> = 0</td></tr>
+<tr class="memitem:a1aaec61af3f2c148357f01b8100254b3" id="r_a1aaec61af3f2c148357f01b8100254b3"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a1aaec61af3f2c148357f01b8100254b3">repResultado</a> = 0</td></tr>
+<tr class="memitem:a69d599cbce89980477f0e3d5ec1007fa" id="r_a69d599cbce89980477f0e3d5ec1007fa"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a69d599cbce89980477f0e3d5ec1007fa">repDetalle</a> = 0</td></tr>
+<tr class="memitem:a5a0f2e3deada957dccf439353ceeb2a9" id="r_a5a0f2e3deada957dccf439353ceeb2a9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5a0f2e3deada957dccf439353ceeb2a9">enPrueba</a> = false</td></tr>
+<tr class="memitem:ad2d0aa4ffbd4886d24549c3bb98be3dc" id="r_ad2d0aa4ffbd4886d24549c3bb98be3dc"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ad2d0aa4ffbd4886d24549c3bb98be3dc">pruebaInicioMs</a> = 0</td></tr>
+<tr class="memitem:ac7f19f72fa2fcf2417b7196dbdcc8cce" id="r_ac7f19f72fa2fcf2417b7196dbdcc8cce"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ac7f19f72fa2fcf2417b7196dbdcc8cce">trabajoEnPrueba</a> = 0</td></tr>
+<tr class="memitem:a7eb461183805c5e69fa578062621b4b8" id="r_a7eb461183805c5e69fa578062621b4b8"><td class="memItemLeft"><a class="el" href="struct_evento_h_m_i.html">EventoHMI</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7eb461183805c5e69fa578062621b4b8">colaHMI</a> [<a class="el" href="#a1124aab05de59d54f7ab5d320707bb8f">COLA_HMI_MAX</a>]</td></tr>
+<tr class="memitem:a4cff3ec34848b06fcf93ef97d5605eec" id="r_a4cff3ec34848b06fcf93ef97d5605eec"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a4cff3ec34848b06fcf93ef97d5605eec">nColaHMI</a> = 0</td></tr>
+<tr class="memitem:a4581f005573985612ecc374b9ba1dfb9" id="r_a4581f005573985612ecc374b9ba1dfb9"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a4581f005573985612ecc374b9ba1dfb9">ultimoMensajeHMIms</a> = 0</td></tr>
+<tr class="memitem:a0b0b9b34647f41a196d75c170c30daea" id="r_a0b0b9b34647f41a196d75c170c30daea"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0b0b9b34647f41a196d75c170c30daea">otaEnCurso</a> = false</td></tr>
+<tr class="memitem:aa6f9815638af729c13798895f41dcd76" id="r_aa6f9815638af729c13798895f41dcd76"><td class="memItemLeft">const uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa6f9815638af729c13798895f41dcd76">patronLED</a> [] = { 1000, 1000 }</td></tr>
+<tr class="memitem:a4845382c8f6d61dd63c4245ab82598ec" id="r_a4845382c8f6d61dd63c4245ab82598ec"><td class="memItemLeft">const uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a4845382c8f6d61dd63c4245ab82598ec">pasosPatron</a> = sizeof(<a class="el" href="#aa6f9815638af729c13798895f41dcd76">patronLED</a>) / sizeof(<a class="el" href="#aa6f9815638af729c13798895f41dcd76">patronLED</a>[0])</td></tr>
+<tr class="memitem:a1f0a3227aefb6570660d67952589157d" id="r_a1f0a3227aefb6570660d67952589157d"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a1f0a3227aefb6570660d67952589157d">pasoLED</a> = 0</td></tr>
+<tr class="memitem:af8779346f38243ebbaab6b8c25e90059" id="r_af8779346f38243ebbaab6b8c25e90059"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#af8779346f38243ebbaab6b8c25e90059">ultimoCambioLED</a> = 0</td></tr>
+<tr class="memitem:a7a84e16bd3e544abba5da25c4d662f8a" id="r_a7a84e16bd3e544abba5da25c4d662f8a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7a84e16bd3e544abba5da25c4d662f8a">estadoLED</a> = false</td></tr>
+<tr class="memitem:a077196a01edbd38801963311a1da08e4" id="r_a077196a01edbd38801963311a1da08e4"><td class="memItemLeft">const <a class="el" href="struct_regla_h_m_i.html">ReglaHMI</a>&#160;</td><td class="memItemRight"><a class="el" href="#a077196a01edbd38801963311a1da08e4">REGLAS_HMI</a> []</td></tr>
+<tr class="memdesc:a077196a01edbd38801963311a1da08e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Significado de cada palabra y gesto.  <br /></td></tr>
+<tr class="memitem:ab7606a93e8116671875f0993037a1625" id="r_ab7606a93e8116671875f0993037a1625"><td class="memItemLeft">const uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ab7606a93e8116671875f0993037a1625">N_REGLAS</a> = sizeof(<a class="el" href="#a077196a01edbd38801963311a1da08e4">REGLAS_HMI</a>) / sizeof(<a class="el" href="#a077196a01edbd38801963311a1da08e4">REGLAS_HMI</a>[0])</td></tr>
+<tr class="memitem:a686d7d268377986dfb6a09cbeaabebb8" id="r_a686d7d268377986dfb6a09cbeaabebb8"><td class="memItemLeft">WiFiClient&#160;</td><td class="memItemRight"><a class="el" href="#a686d7d268377986dfb6a09cbeaabebb8">clienteHttp</a></td></tr>
+<tr class="memitem:ad43844a30da7ae9edb2b48dad63ff403" id="r_ad43844a30da7ae9edb2b48dad63ff403"><td class="memItemLeft">WiFiClientSecure&#160;</td><td class="memItemRight"><a class="el" href="#ad43844a30da7ae9edb2b48dad63ff403">clienteHttps</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>HELMO · Firmware 1 de 2: nodo de pH con LoRaWAN Clase A, OTA híbrida segura y enlace HMI. </p>
+<dl class="section author"><dt>Autor</dt><dd>Esteban Eduardo Escarraga </dd></dl>
+<dl class="section version"><dt>Versión</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>2026-11</dd></dl>
+<p><b>HELMO</b> (Hybrid LoRa Environment for Water Monitoring and Optimization).</p>
+<ul>
+<li><b>Hardware:</b> Heltec WiFi LoRa 32 V3 (ESP32-S3 + SX1262), sensor de pH alimentado por MOSFET y, opcionalmente, el módulo HMI Arduino Nano 33 BLE Sense por UART (ver <a class="el" href="helmo__hmi__nano_8ino.html" title="HELMO · Firmware 2 de 2: módulo HMI de voz y gestos para el nodo de pH.">helmo_hmi_nano.ino</a>).</li>
+<li><b>Entorno:</b> Arduino IDE, placa "Heltec WiFi LoRa 32(V3)", particiones "8M with spiffs (3MB APP/1.5MB SPIFFS)".</li>
+</ul>
+<dl class="section user"><dt>Funciones principales</dt><dd><ol type="1">
+<li>Telemetría por LoRaWAN <b>Clase A</b> hacia TTN Sandbox (US915, sub-banda 2).</li>
+<li><b>OTA híbrida:</b> el servidor ordena la actualización con un único downlink por TTN (puerto 10); el nodo descarga la imagen por el Wi-Fi de mantenimiento y lo apaga al terminar.</li>
+<li><b>Seguridad de la OTA:</b> manifiesto firmado con ECDSA P-256, SHA-256 progresivo, anti-downgrade, watchdog de transferencia y rollback si la versión nueva no se une a la red.</li>
+<li><b>Interfaz de voz y gestos:</b> recibe eventos del módulo HMI y le envía el pH y su estado.</li>
+</ol>
+</dd></dl>
+<dl class="section user"><dt>Puertos LoRaWAN (todos caben en DR0 de US915, máximo 11 bytes; enteros big-endian)</dt><dd><pre class="fragment"> Uplink 3  pH  (9 B): [nodo][pH x100 2B][mV 2B][fw M][fw m][fw p][flags]
+                      flags: bit0-1 estado pH (0 normal, 1 aviso, 2 alarma)
+                             bit2 HMI conectado | bit3 firmware en periodo de prueba
+ Uplink 4  HMI (5 B): [nodo][tipo 1=voz 2=gesto][código][confianza %][acción]
+ Uplink 5  OTA (7 B): [nodo][trabajo][resultado][fw M][fw m][fw p][detalle]
+                      resultado: 1 EXITO, 2 ERROR, 3 ROLLBACK, 4 YA_AL_DIA
+ Downlink 10 comandos:
+    01 [trabajo][M][m][p]  -&gt; actualizar por Wi-Fi a la versión M.m.p
+    02 [min 2B]            -&gt; cambiar intervalo de envío (1..1440 min)
+    03                      -&gt; medir pH ya
+    04                      -&gt; reiniciar
+</pre></dd></dl>
+<dl class="section user"><dt>Prueba visual (LED blanco, GPIO 35)</dt><dd>FW_MINOR par = parpadeo lento · FW_MINOR impar = triple destello · durante la OTA = parpadeo rápido.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Las credenciales están en <span class="tt">secretos.h</span>, que <b>no</b> se publica ni se documenta. Usa <span class="tt"><a class="el" href="secretos_8ejemplo_8h.html" title="Plantilla de credenciales del nodo de pH (sin valores reales).">secretos.ejemplo.h</a></span> como plantilla. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="helmo__hmi__nano_8ino.html" title="HELMO · Firmware 2 de 2: módulo HMI de voz y gestos para el nodo de pH.">helmo_hmi_nano.ino</a>, <a class="el" href="firmar__firmware_8py.html" title="HELMO - Firma y publicación de firmware para la OTA híbrida.">firmar_firmware.py</a>, <a class="el" href="helmo__ota_8py.html" title="HELMO - Orquestador OTA y eventos HMI (servidor de aplicación Debian 12).">helmo_ota.py</a>, <a class="el" href="ttn__formatter_8js.html">ttn_formatter.js</a> </dd></dl>
+
+<p class="definition">Definición en el archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="af8e2f31f9628652f0bb880cafc6975f9" name="af8e2f31f9628652f0bb880cafc6975f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e2f31f9628652f0bb880cafc6975f9">&#9670;&#160;</a></span>FW_MAJOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FW_MAJOR&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">66</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a>.</p>
+
+</div>
+</div>
+<a id="ac544ea0164f2964bd0e44b91e01dcffd" name="ac544ea0164f2964bd0e44b91e01dcffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac544ea0164f2964bd0e44b91e01dcffd">&#9670;&#160;</a></span>FW_MINOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FW_MINOR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">67</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a>.</p>
+
+</div>
+</div>
+<a id="a7ff45bb1ae8d31881298089b96876acc" name="a7ff45bb1ae8d31881298089b96876acc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ff45bb1ae8d31881298089b96876acc">&#9670;&#160;</a></span>FW_PATCH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FW_PATCH&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">68</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a>.</p>
+
+</div>
+</div>
+<a id="acbc93d9ee5b48670251803d45ccfb9cb" name="acbc93d9ee5b48670251803d45ccfb9cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbc93d9ee5b48670251803d45ccfb9cb">&#9670;&#160;</a></span>FW_PRODUCTO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FW_PRODUCTO&#160;&#160;&#160;&quot;helmo-ph-node&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00069">69</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a6d4f73356b827987981fbf6669ca8d83" name="a6d4f73356b827987981fbf6669ca8d83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d4f73356b827987981fbf6669ca8d83">&#9670;&#160;</a></span>FW_CANAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FW_CANAL&#160;&#160;&#160;&quot;ph-node&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00070">70</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>.</p>
+
+</div>
+</div>
+<a id="ae19bfd2ea75b7ddfc0c9e520240ab733" name="ae19bfd2ea75b7ddfc0c9e520240ab733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae19bfd2ea75b7ddfc0c9e520240ab733">&#9670;&#160;</a></span>NODE_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NODE_ID&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00075">75</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="acdfa2fdb00afc9a61cabd50ec04b0296" name="acdfa2fdb00afc9a61cabd50ec04b0296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdfa2fdb00afc9a61cabd50ec04b0296">&#9670;&#160;</a></span>ADC_PH_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADC_PH_PIN&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00078">78</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00403">leerVoltajePHFiltrado()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a05306f76e4fda2f326f5b17564cce4cb" name="a05306f76e4fda2f326f5b17564cce4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05306f76e4fda2f326f5b17564cce4cb">&#9670;&#160;</a></span>MOSFET_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOSFET_PIN&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00079">79</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00400">energizarSensorPH()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="ab4553be4db9860d940f81d7447173b2f" name="ab4553be4db9860d940f81d7447173b2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4553be4db9860d940f81d7447173b2f">&#9670;&#160;</a></span>LED_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED_PIN&#160;&#160;&#160;35</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00080">80</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="ac703bc353410084def1ae65fc54b5dd3" name="ac703bc353410084def1ae65fc54b5dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac703bc353410084def1ae65fc54b5dd3">&#9670;&#160;</a></span>HMI_HABILITADO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_HABILITADO&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00082">82</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="ab1a4c08c09caa0e45fb78ece466d9724" name="ab1a4c08c09caa0e45fb78ece466d9724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a4c08c09caa0e45fb78ece466d9724">&#9670;&#160;</a></span>HMI_RX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_RX_PIN&#160;&#160;&#160;47</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00083">83</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a054052ac97c20683d1f9dd3f6a4419b5" name="a054052ac97c20683d1f9dd3f6a4419b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a054052ac97c20683d1f9dd3f6a4419b5">&#9670;&#160;</a></span>HMI_TX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_TX_PIN&#160;&#160;&#160;48</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00084">84</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a9ac7baa5705c3f086ca8621972900e0d" name="a9ac7baa5705c3f086ca8621972900e0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ac7baa5705c3f086ca8621972900e0d">&#9670;&#160;</a></span>HMI_BAUD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_BAUD&#160;&#160;&#160;115200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00085">85</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a09f9f64f27895f9937a26c91059a3cd5" name="a09f9f64f27895f9937a26c91059a3cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f9f64f27895f9937a26c91059a3cd5">&#9670;&#160;</a></span>HMI_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_TIMEOUT_MS&#160;&#160;&#160;30000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00086">86</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">hmiConectado()</a>.</p>
+
+</div>
+</div>
+<a id="ac96d39b9e2dccaa206865ddcc5fd8636" name="ac96d39b9e2dccaa206865ddcc5fd8636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac96d39b9e2dccaa206865ddcc5fd8636">&#9670;&#160;</a></span>PH4_BUFFER_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH4_BUFFER_VALUE&#160;&#160;&#160;4.00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00092">92</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="af58f7b4b52a8e5bba8ee2b0c72715041" name="af58f7b4b52a8e5bba8ee2b0c72715041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af58f7b4b52a8e5bba8ee2b0c72715041">&#9670;&#160;</a></span>PH7_BUFFER_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH7_BUFFER_VALUE&#160;&#160;&#160;7.00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00093">93</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a01154aabb0833eddc3177b78b1424889" name="a01154aabb0833eddc3177b78b1424889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01154aabb0833eddc3177b78b1424889">&#9670;&#160;</a></span>PH4_VOLTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH4_VOLTAGE&#160;&#160;&#160;2.560</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00094">94</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="aae98c7a8ee1313d9299c64fb504d452f" name="aae98c7a8ee1313d9299c64fb504d452f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae98c7a8ee1313d9299c64fb504d452f">&#9670;&#160;</a></span>PH7_VOLTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH7_VOLTAGE&#160;&#160;&#160;2.250</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00095">95</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a9fed137b8c562b8d8cea6f82383ce3e5" name="a9fed137b8c562b8d8cea6f82383ce3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fed137b8c562b8d8cea6f82383ce3e5">&#9670;&#160;</a></span>PH_M</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH_M&#160;&#160;&#160;((<a class="el" href="#af58f7b4b52a8e5bba8ee2b0c72715041">PH7_BUFFER_VALUE</a> - <a class="el" href="#ac96d39b9e2dccaa206865ddcc5fd8636">PH4_BUFFER_VALUE</a>) / (<a class="el" href="#aae98c7a8ee1313d9299c64fb504d452f">PH7_VOLTAGE</a> - <a class="el" href="#a01154aabb0833eddc3177b78b1424889">PH4_VOLTAGE</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00096">96</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a1bc980977b9b44013b9858e34fe964cc" name="a1bc980977b9b44013b9858e34fe964cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc980977b9b44013b9858e34fe964cc">&#9670;&#160;</a></span>PH_B</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH_B&#160;&#160;&#160;(<a class="el" href="#af58f7b4b52a8e5bba8ee2b0c72715041">PH7_BUFFER_VALUE</a> - (<a class="el" href="#a9fed137b8c562b8d8cea6f82383ce3e5">PH_M</a> * <a class="el" href="#aae98c7a8ee1313d9299c64fb504d452f">PH7_VOLTAGE</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00097">97</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a14a6bc4b06c8b1fb9ad9a881f2ba54ea" name="a14a6bc4b06c8b1fb9ad9a881f2ba54ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a6bc4b06c8b1fb9ad9a881f2ba54ea">&#9670;&#160;</a></span>PH_LIMITE_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH_LIMITE_MIN&#160;&#160;&#160;6.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00099">99</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="ab761d1c8d3d438fcd08a74b7cf654f4d" name="ab761d1c8d3d438fcd08a74b7cf654f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab761d1c8d3d438fcd08a74b7cf654f4d">&#9670;&#160;</a></span>PH_LIMITE_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH_LIMITE_MAX&#160;&#160;&#160;9.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00100">100</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">clasificarPH()</a>.</p>
+
+</div>
+</div>
+<a id="aa2654b52713e50db3a5d2a66b52648e5" name="aa2654b52713e50db3a5d2a66b52648e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2654b52713e50db3a5d2a66b52648e5">&#9670;&#160;</a></span>PH_MARGEN_AVISO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PH_MARGEN_AVISO&#160;&#160;&#160;0.3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00101">101</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">clasificarPH()</a>.</p>
+
+</div>
+</div>
+<a id="ad892b4e6b7ae14ab4b1b98b38d652fcd" name="ad892b4e6b7ae14ab4b1b98b38d652fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad892b4e6b7ae14ab4b1b98b38d652fcd">&#9670;&#160;</a></span>INTERVALO_TX_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTERVALO_TX_MS&#160;&#160;&#160;300000UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00108">108</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a90e0cdffbdcac7923f48b1f6ff2e9fbf" name="a90e0cdffbdcac7923f48b1f6ff2e9fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90e0cdffbdcac7923f48b1f6ff2e9fbf">&#9670;&#160;</a></span>SEPARACION_MIN_TX_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEPARACION_MIN_TX_MS&#160;&#160;&#160;20000UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00109">109</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a4735ad9aef99f8584afd945f39260954" name="a4735ad9aef99f8584afd945f39260954"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4735ad9aef99f8584afd945f39260954">&#9670;&#160;</a></span>WIFI_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WIFI_TIMEOUT_MS&#160;&#160;&#160;30000UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00110">110</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a>.</p>
+
+</div>
+</div>
+<a id="ad3e088c527eabaddc9a584406e519dc8" name="ad3e088c527eabaddc9a584406e519dc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e088c527eabaddc9a584406e519dc8">&#9670;&#160;</a></span>OTA_TIMEOUT_DATOS_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OTA_TIMEOUT_DATOS_MS&#160;&#160;&#160;10000UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00111">111</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a>.</p>
+
+</div>
+</div>
+<a id="a0669fefc6c5ad033cb50dcd27c1a87b1" name="a0669fefc6c5ad033cb50dcd27c1a87b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0669fefc6c5ad033cb50dcd27c1a87b1">&#9670;&#160;</a></span>PRUEBA_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRUEBA_TIMEOUT_MS&#160;&#160;&#160;(15UL * 60UL * 1000UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00112">112</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a8bb220541afbb9343d6a709bf57f0ced" name="a8bb220541afbb9343d6a709bf57f0ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb220541afbb9343d6a709bf57f0ced">&#9670;&#160;</a></span>PRUEBA_MAX_ARRANQUES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRUEBA_MAX_ARRANQUES&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00113">113</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a82fdf2d312c986a3ba6cb7fa43c1720d" name="a82fdf2d312c986a3ba6cb7fa43c1720d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82fdf2d312c986a3ba6cb7fa43c1720d">&#9670;&#160;</a></span>PUERTO_PH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PUERTO_PH&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00133">133</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="ad2475d0d2efc11c4032bb685f1f3f8f5" name="ad2475d0d2efc11c4032bb685f1f3f8f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2475d0d2efc11c4032bb685f1f3f8f5">&#9670;&#160;</a></span>PUERTO_HMI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PUERTO_HMI&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00134">134</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>.</p>
+
+</div>
+</div>
+<a id="af2323a20edd4a7b5a7ed824df1bf0ac1" name="af2323a20edd4a7b5a7ed824df1bf0ac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2323a20edd4a7b5a7ed824df1bf0ac1">&#9670;&#160;</a></span>PUERTO_OTA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PUERTO_OTA&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00135">135</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>.</p>
+
+</div>
+</div>
+<a id="af040d2846a5490cc30372a81d079ebad" name="af040d2846a5490cc30372a81d079ebad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af040d2846a5490cc30372a81d079ebad">&#9670;&#160;</a></span>PUERTO_CMD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PUERTO_CMD&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00136">136</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a>.</p>
+
+</div>
+</div>
+<a id="a1124aab05de59d54f7ab5d320707bb8f" name="a1124aab05de59d54f7ab5d320707bb8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1124aab05de59d54f7ab5d320707bb8f">&#9670;&#160;</a></span>COLA_HMI_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COLA_HMI_MAX&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00172">172</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Documentación de enumeraciones</h2>
+<a id="a19a0aa82cb62351da91f5c3a6029c064" name="a19a0aa82cb62351da91f5c3a6029c064"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19a0aa82cb62351da91f5c3a6029c064">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a19a0aa82cb62351da91f5c3a6029c064a104bbdedc1a2846f3a01e1ef3132a3e7" name="a19a0aa82cb62351da91f5c3a6029c064a104bbdedc1a2846f3a01e1ef3132a3e7"></a>CMD_OTA_WIFI&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a19a0aa82cb62351da91f5c3a6029c064aa9b20708d7ed68c43026add6262fe87b" name="a19a0aa82cb62351da91f5c3a6029c064aa9b20708d7ed68c43026add6262fe87b"></a>CMD_INTERVALO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a19a0aa82cb62351da91f5c3a6029c064abe978d2adf0795efa83786e2862d7ad2" name="a19a0aa82cb62351da91f5c3a6029c064abe978d2adf0795efa83786e2862d7ad2"></a>CMD_MEDIR_YA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a19a0aa82cb62351da91f5c3a6029c064a188afa202aacf132f62607e618b1d52d" name="a19a0aa82cb62351da91f5c3a6029c064a188afa202aacf132f62607e618b1d52d"></a>CMD_REINICIAR&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00138">138</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a9947d000d82e7f01c2f2131524d934ef" name="a9947d000d82e7f01c2f2131524d934ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9947d000d82e7f01c2f2131524d934ef">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a9947d000d82e7f01c2f2131524d934efa88fe94841a0c5971c9ce2a749af9e09e" name="a9947d000d82e7f01c2f2131524d934efa88fe94841a0c5971c9ce2a749af9e09e"></a>OTA_EXITO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9947d000d82e7f01c2f2131524d934efa7eb76691c3d7d209c55b65a9af11aa45" name="a9947d000d82e7f01c2f2131524d934efa7eb76691c3d7d209c55b65a9af11aa45"></a>OTA_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9947d000d82e7f01c2f2131524d934efaedf1c963d9b8f812bbe14fd2e9dc1132" name="a9947d000d82e7f01c2f2131524d934efaedf1c963d9b8f812bbe14fd2e9dc1132"></a>OTA_ROLLBACK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9947d000d82e7f01c2f2131524d934efa50b9c0696510a91c929d13d43c7667a0" name="a9947d000d82e7f01c2f2131524d934efa50b9c0696510a91c929d13d43c7667a0"></a>OTA_YA_AL_DIA&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00139">139</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a8b279ba4bbea0bfdc87fd7e0794ffa6f" name="a8b279ba4bbea0bfdc87fd7e0794ffa6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b279ba4bbea0bfdc87fd7e0794ffa6f">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa6f70076a8d38d0f002bfb46f801fcab2" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa6f70076a8d38d0f002bfb46f801fcab2"></a>E_NINGUNO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa4c56f6435711b3b53f82040bcc2aa640" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa4c56f6435711b3b53f82040bcc2aa640"></a>E_WIFI&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fae865feac3e93d35ed3f06c8c18df69e2" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fae865feac3e93d35ed3f06c8c18df69e2"></a>E_MANIF_HTTP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6faa478e28f210b9869a0a08e3cf32226d7" name="a8b279ba4bbea0bfdc87fd7e0794ffa6faa478e28f210b9869a0a08e3cf32226d7"></a>E_MANIF_JSON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fabad939937ff03ed9126de0742236cfc8" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fabad939937ff03ed9126de0742236cfc8"></a>E_PRODUCTO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6faf292ef15e3e11ac7ec5d0772ee9745c4" name="a8b279ba4bbea0bfdc87fd7e0794ffa6faf292ef15e3e11ac7ec5d0772ee9745c4"></a>E_VERSION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa78f3bd1d9df71ce0d43d9ad4bf6970e2" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa78f3bd1d9df71ce0d43d9ad4bf6970e2"></a>E_FIRMA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa41a089bd91c20d175570f4a3334d9acf" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa41a089bd91c20d175570f4a3334d9acf"></a>E_DESCARGA_HTTP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa076a01f2f2d2590020ad8c0464a3810d" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa076a01f2f2d2590020ad8c0464a3810d"></a>E_TAMANO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fac87da8abc3f3eac1659e95104b569bbb" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fac87da8abc3f3eac1659e95104b569bbb"></a>E_INTERRUMPIDA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa1ca7007157f7f4a25ec43134d929d955" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa1ca7007157f7f4a25ec43134d929d955"></a>E_FLASH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6faf762113bd0ba8400d13646b784433794" name="a8b279ba4bbea0bfdc87fd7e0794ffa6faf762113bd0ba8400d13646b784433794"></a>E_SHA256&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa77958414799fcaf2f71346d26318c3e0" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa77958414799fcaf2f71346d26318c3e0"></a>E_IMAGEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b279ba4bbea0bfdc87fd7e0794ffa6fa6fa48e2d6ae8e7a26cf8fa73a2b49bef" name="a8b279ba4bbea0bfdc87fd7e0794ffa6fa6fa48e2d6ae8e7a26cf8fa73a2b49bef"></a>E_OCUPADO&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00140">140</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="aa038beed920a459858bb253ecf1919ce" name="aa038beed920a459858bb253ecf1919ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa038beed920a459858bb253ecf1919ce">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426" name="aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426"></a>ACC_INCIDENTE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4" name="aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4"></a>ACC_MEDIR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a" name="aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a"></a>ACC_RECONOCER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112" name="aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112"></a>ACC_MOSTRAR&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00290">290</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="abad10e43e1fdcd219f9e7e7e10b4654f" name="abad10e43e1fdcd219f9e7e7e10b4654f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad10e43e1fdcd219f9e7e7e10b4654f">&#9670;&#160;</a></span>escribirLED()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void escribirLED </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>on</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enciende o apaga el LED blanco y recuerda su estado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on</td><td>true = encendido. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">192</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00189">estadoLED</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00080">LED_PIN</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="afd0761020b2d358e2601ae87568c0237" name="afd0761020b2d358e2601ae87568c0237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0761020b2d358e2601ae87568c0237">&#9670;&#160;</a></span>actualizarLED()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void actualizarLED </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avanza el patrón de parpadeo que identifica la versión, sin bloquear el bucle. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">195</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00176">otaEnCurso</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00187">pasoLED</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00186">pasosPatron</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00182">patronLED</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00188">ultimoCambioLED</a>.</p>
+
+</div>
+</div>
+<a id="ad76681da26546f7d18dadc05d8323b44" name="ad76681da26546f7d18dadc05d8323b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad76681da26546f7d18dadc05d8323b44">&#9670;&#160;</a></span>versionNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t versionNum </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>M</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Empaqueta una versión semántica en un entero comparable. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>mayor</td></tr>
+    <tr><td class="paramname">m</td><td>menor</td></tr>
+    <tr><td class="paramname">p</td><td>parche </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>(M&lt;&lt;16)|(m&lt;&lt;8)|p </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">212</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">versionNum()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">versionNum()</a>.</p>
+
+</div>
+</div>
+<a id="aabd563841bd491359187dbf2a89d509f" name="aabd563841bd491359187dbf2a89d509f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabd563841bd491359187dbf2a89d509f">&#9670;&#160;</a></span>versionActual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t versionActual </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Versión del firmware en ejecución como entero comparable. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">214</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">versionNum()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a>.</p>
+
+</div>
+</div>
+<a id="a0c851908c26a9e9c7885e8f339298f2f" name="a0c851908c26a9e9c7885e8f339298f2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c851908c26a9e9c7885e8f339298f2f">&#9670;&#160;</a></span>parsearVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool parsearVersion </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;</td>          <td class="paramname"><span class="paramname"><em>M</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convierte un texto "M.m.p" en sus tres componentes. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">s</td><td>texto de la versión </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">M</td><td>mayor</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">m</td><td>menor</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">p</td><td>parche </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>true si el formato es válido (cada parte entre 0 y 255). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00222">222</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00222">parsearVersion()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00222">parsearVersion()</a>.</p>
+
+</div>
+</div>
+<a id="a89a8a38ada7c169efa639db9c5db39ac" name="a89a8a38ada7c169efa639db9c5db39ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89a8a38ada7c169efa639db9c5db39ac">&#9670;&#160;</a></span>sha256Texto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sha256Texto </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>texto</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>salida</em></span>[32]&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcula el SHA-256 de un texto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">texto</td><td>entrada</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">salida</td><td>32 bytes del hash. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00231">231</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00231">sha256Texto()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00231">sha256Texto()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00262">verificarFirma()</a>.</p>
+
+</div>
+</div>
+<a id="a3e8b7ab432a3ed0610402aac954a4733" name="a3e8b7ab432a3ed0610402aac954a4733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e8b7ab432a3ed0610402aac954a4733">&#9670;&#160;</a></span>aHex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String aHex </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>h</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convierte bytes a texto hexadecimal en minúsculas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00241">241</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00241">aHex()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00241">aHex()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a64ab7cd05d980f9454a0d9cb68b4c329" name="a64ab7cd05d980f9454a0d9cb68b4c329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ab7cd05d980f9454a0d9cb68b4c329">&#9670;&#160;</a></span>esHex64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool esHex64 </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>h</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comprueba que un texto sea un hash SHA-256 en hexadecimal (64 caracteres). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00249">249</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00249">esHex64()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00249">esHex64()</a>.</p>
+
+</div>
+</div>
+<a id="a74ac75ff6da69a90c5f407178053ad61" name="a74ac75ff6da69a90c5f407178053ad61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74ac75ff6da69a90c5f407178053ad61">&#9670;&#160;</a></span>verificarFirma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool verificarFirma </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>mensaje</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>firmaB64</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifica la firma ECDSA P-256 del manifiesto con la clave pública de HELMO. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mensaje</td><td>texto canónico "HELMO-OTA|producto|versión|tamaño|sha256" </td></tr>
+    <tr><td class="paramname">firmaB64</td><td>firma DER codificada en base64 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>true solo si la firma es auténtica. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00262">262</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="clave__publica__ota_8h_source.html#l00011">OTA_CLAVE_PUBLICA_PEM</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00231">sha256Texto()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00262">verificarFirma()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00262">verificarFirma()</a>.</p>
+
+</div>
+</div>
+<a id="acd0b3279ef6a3d5e54a1090125e6b335" name="acd0b3279ef6a3d5e54a1090125e6b335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd0b3279ef6a3d5e54a1090125e6b335">&#9670;&#160;</a></span>enviarHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enviarHMI </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>linea</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Envía una línea de texto al módulo HMI por UART (Serial1). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">306</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="aab1e14dc66a47bb3b21568140bc1e24d" name="aab1e14dc66a47bb3b21568140bc1e24d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab1e14dc66a47bb3b21568140bc1e24d">&#9670;&#160;</a></span>enviarPHaHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enviarPHaHMI </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Envía al HMI el último pH, su estado de semáforo y si la alarma fue reconocida. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">314</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">alertaReconocida</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">estadoPH</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00155">ultimoPH</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="abb4d593e078886ec114a105250554c90" name="abb4d593e078886ec114a105250554c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb4d593e078886ec114a105250554c90">&#9670;&#160;</a></span>hmiConectado()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmiConectado </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indica si el módulo HMI respondió en los últimos HMI_TIMEOUT_MS. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">321</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00086">HMI_TIMEOUT_MS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">hmiConectado()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00175">ultimoMensajeHMIms</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">hmiConectado()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="af39389373bc1641a150ddea46fb8c530" name="af39389373bc1641a150ddea46fb8c530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af39389373bc1641a150ddea46fb8c530">&#9670;&#160;</a></span>encolarEventoHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void encolarEventoHMI </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>tipo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>codigo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>conf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>accion</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Guarda un evento de voz o gesto para enviarlo por el puerto 4. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">330</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00172">COLA_HMI_MAX</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00173">colaHMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00174">nColaHMI</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a8db2d45a81dc76feb8a5b8a9c3a7c9e8" name="a8db2d45a81dc76feb8a5b8a9c3a7c9e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db2d45a81dc76feb8a5b8a9c3a7c9e8">&#9670;&#160;</a></span>procesarLineaHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void procesarLineaHMI </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>linea</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interpreta un mensaje del HMI (HOLA, PING o EVT) y ejecuta la acción de REGLAS_HMI. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">linea</td><td>mensaje sin salto de línea; se modifica al separar los campos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">339</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00290">ACC_INCIDENTE</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00290">ACC_MEDIR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00290">ACC_MOSTRAR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00290">ACC_RECONOCER</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00293">ReglaHMI::accion</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">alertaReconocida</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00293">ReglaHMI::codigo</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">estadoPH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00293">ReglaHMI::etiqueta</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00303">N_REGLAS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00152">phForzado</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00296">REGLAS_HMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00293">ReglaHMI::tipo</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">ultimoEventoMs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00175">ultimoMensajeHMIms</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00293">ReglaHMI::uplink</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00384">atenderHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a722f010be8f8c3da18857929a27ce72f" name="a722f010be8f8c3da18857929a27ce72f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a722f010be8f8c3da18857929a27ce72f">&#9670;&#160;</a></span>atenderHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atenderHMI </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lee el UART del HMI sin bloquear y procesa cada línea completa. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00384">384</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00384">atenderHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00384">atenderHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a41a762067a4024d2e7536a3ac30db520" name="a41a762067a4024d2e7536a3ac30db520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41a762067a4024d2e7536a3ac30db520">&#9670;&#160;</a></span>energizarSensorPH()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void energizarSensorPH </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>on</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alimenta el sensor de pH por el MOSFET; al encender espera 3 s de estabilización. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00400">400</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00400">energizarSensorPH()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00079">MOSFET_PIN</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00400">energizarSensorPH()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="aaf35d4ff976845a611b2ac5bbec98516" name="aaf35d4ff976845a611b2ac5bbec98516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf35d4ff976845a611b2ac5bbec98516">&#9670;&#160;</a></span>leerVoltajePHFiltrado()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float leerVoltajePHFiltrado </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Toma 10 lecturas del ADC, descarta los extremos y promedia las 6 centrales. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>voltaje en V. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00403">403</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00078">ADC_PH_PIN</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00403">leerVoltajePHFiltrado()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00403">leerVoltajePHFiltrado()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a0421b611bfe1d714f9b324f158e02e46" name="a0421b611bfe1d714f9b324f158e02e46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0421b611bfe1d714f9b324f158e02e46">&#9670;&#160;</a></span>clasificarPH()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t clasificarPH </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ph</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clasifica el pH según la norma de agua potable. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>0 normal, 1 aviso, 2 alarma. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">416</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">clasificarPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00100">PH_LIMITE_MAX</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00101">PH_MARGEN_AVISO</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">clasificarPH()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a338fd052aead235ac9c069baa0bdfa02" name="a338fd052aead235ac9c069baa0bdfa02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a338fd052aead235ac9c069baa0bdfa02">&#9670;&#160;</a></span>prepararUplinkPH()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void prepararUplinkPH </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mide el pH, actualiza el semáforo y arma el payload del puerto 3. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">423</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">alertaReconocida</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00130">appPort</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00416">clasificarPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00400">energizarSensorPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">estadoPH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">hmiConectado()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00403">leerVoltajePHFiltrado()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00075">NODE_ID</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00097">PH_B</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00096">PH_M</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00133">PUERTO_PH</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00155">ultimoPH</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a53a88d12c89426707ef315c4a719fd66" name="a53a88d12c89426707ef315c4a719fd66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53a88d12c89426707ef315c4a719fd66">&#9670;&#160;</a></span>prepararUplinkHMI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void prepararUplinkHMI </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saca el evento HMI más antiguo de la cola y arma el payload del puerto 4. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">452</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00171">EventoHMI::accion</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00130">appPort</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00171">EventoHMI::codigo</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00173">colaHMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00171">EventoHMI::confianza</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00174">nColaHMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00075">NODE_ID</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00134">PUERTO_HMI</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00171">EventoHMI::tipo</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>.</p>
+
+</div>
+</div>
+<a id="aa9af7a93b3fca241529b502c357ee3ff" name="aa9af7a93b3fca241529b502c357ee3ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9af7a93b3fca241529b502c357ee3ff">&#9670;&#160;</a></span>programarReporteOTA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void programarReporteOTA </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>trabajo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>resultado</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>detalle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deja pendiente un reporte de resultado OTA para el puerto 5. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">464</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repDetalle</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00163">reporteOTAPendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repResultado</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repTrabajo</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a9b385760e057d0d0dbd0811695505b93" name="a9b385760e057d0d0dbd0811695505b93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b385760e057d0d0dbd0811695505b93">&#9670;&#160;</a></span>prepararUplinkOTA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void prepararUplinkOTA </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Arma el payload del puerto 5 con el resultado del trabajo OTA. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">470</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00130">appPort</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00075">NODE_ID</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00135">PUERTO_OTA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repDetalle</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00163">reporteOTAPendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repResultado</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">repTrabajo</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a5642edb4993dd65581c2015608f0abb3" name="a5642edb4993dd65581c2015608f0abb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5642edb4993dd65581c2015608f0abb3">&#9670;&#160;</a></span>verifyRollbackLater()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool verifyRollbackLater </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Evita que el núcleo Arduino confirme la imagen al arrancar. </p>
+<p>La confirmación la hace <a class="el" href="#a67b2bff340f0bad7c9781351e00b7b85" title="Marca la versión nueva como válida tras el Join Accept y programa el reporte EXITO.">confirmarFirmware()</a> cuando el nodo logra unirse a la red. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00489">489</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00489">verifyRollbackLater()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00489">verifyRollbackLater()</a>.</p>
+
+</div>
+</div>
+<a id="a2821cf94371c7256f9a449cb2a2ed983" name="a2821cf94371c7256f9a449cb2a2ed983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2821cf94371c7256f9a449cb2a2ed983">&#9670;&#160;</a></span>revertirFirmware()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void revertirFirmware </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>motivo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vuelve a la partición anterior (rollback) y reinicia. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">motivo</td><td>texto para el registro serie. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">492</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00149">prefs</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a122396fd26e89a2e58c303f997d0e280" name="a122396fd26e89a2e58c303f997d0e280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122396fd26e89a2e58c303f997d0e280">&#9670;&#160;</a></span>revisarArranqueTrasOTA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void revisarArranqueTrasOTA </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Al arrancar, detecta si viene de una OTA: inicia el periodo de prueba, cuenta reinicios o reporta un rollback ya ocurrido. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">514</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00139">OTA_ROLLBACK</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00149">prefs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00113">PRUEBA_MAX_ARRANQUES</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00167">pruebaInicioMs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00168">trabajoEnPrueba</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a67b2bff340f0bad7c9781351e00b7b85" name="a67b2bff340f0bad7c9781351e00b7b85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67b2bff340f0bad7c9781351e00b7b85">&#9670;&#160;</a></span>confirmarFirmware()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void confirmarFirmware </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marca la versión nueva como válida tras el Join Accept y programa el reporte EXITO. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">546</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00139">OTA_EXITO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00149">prefs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00168">trabajoEnPrueba</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a9704e737f4e9ac284e27d076652a8b33" name="a9704e737f4e9ac284e27d076652a8b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9704e737f4e9ac284e27d076652a8b33">&#9670;&#160;</a></span>iniciarHTTP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iniciarHTTP </td>
+          <td>(</td>
+          <td class="paramtype">HTTPClient &amp;</td>          <td class="paramname"><span class="paramname"><em>http</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>url</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepara un cliente HTTP o HTTPS (para ngrok) con tiempo límite y redirecciones. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">564</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00560">clienteHttp</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00561">clienteHttps</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00111">OTA_TIMEOUT_DATOS_MS</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a>.</p>
+
+</div>
+</div>
+<a id="a2eab09cb15008dc062fddadae0b1d489" name="a2eab09cb15008dc062fddadae0b1d489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eab09cb15008dc062fddadae0b1d489">&#9670;&#160;</a></span>conectarWiFiMantenimiento()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool conectarWiFiMantenimiento </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Intenta conectarse a las redes de mantenimiento definidas en secretos.h. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>true si hay conexión. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">582</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00189">estadoLED</a>, <a class="el" href="secretos_8ejemplo_8h_source.html#l00025">WIFI_MANT_PASS_1</a>, <a class="el" href="secretos_8ejemplo_8h_source.html#l00027">WIFI_MANT_PASS_2</a>, <a class="el" href="secretos_8ejemplo_8h_source.html#l00024">WIFI_MANT_SSID_1</a>, <a class="el" href="secretos_8ejemplo_8h_source.html#l00026">WIFI_MANT_SSID_2</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00110">WIFI_TIMEOUT_MS</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a41c7fbc84f1a9c7623ce1446bcfa2c53" name="a41c7fbc84f1a9c7623ce1446bcfa2c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c7fbc84f1a9c7623ce1446bcfa2c53">&#9670;&#160;</a></span>apagarWiFi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apagarWiFi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Desconecta y apaga el Wi-Fi para volver al bajo consumo. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00605">605</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00605">apagarWiFi()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00605">apagarWiFi()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a8761a5b44a3fe100bc446ed945990723" name="a8761a5b44a3fe100bc446ed945990723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8761a5b44a3fe100bc446ed945990723">&#9670;&#160;</a></span>ejecutarOTA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ejecutarOTA </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>trabajo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>M</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Descarga, verifica e instala una imagen firmada. </p>
+<p>Pasos: manifiesto → firma ECDSA → anti-downgrade → descarga con SHA-256 progresivo → Update.end() → periodo de prueba → reinicio. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trabajo</td><td>número del trabajo asignado por el servidor </td></tr>
+    <tr><td class="paramname">M,m,p</td><td>versión ordenada </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>código E_* de error; si tiene éxito reinicia y no retorna. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">616</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00241">aHex()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00605">apagarWiFi()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00142">E_DESCARGA_HTTP</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00142">E_FIRMA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00142">E_FLASH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00143">E_IMAGEN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00142">E_INTERRUMPIDA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_MANIF_HTTP</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_MANIF_JSON</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_NINGUNO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_PRODUCTO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00143">E_SHA256</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00142">E_TAMANO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_VERSION</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00141">E_WIFI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00249">esHex64()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00189">estadoLED</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00070">FW_CANAL</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00069">FW_PRODUCTO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a>, <a class="el" href="secretos_8ejemplo_8h_source.html#l00035">OTA_BASE_URL</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00111">OTA_TIMEOUT_DATOS_MS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00222">parsearVersion()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00149">prefs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00262">verificarFirma()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">versionNum()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a6885cf01857423c6f595457c85af5005" name="a6885cf01857423c6f595457c85af5005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6885cf01857423c6f595457c85af5005">&#9670;&#160;</a></span>procesarOrdenOTA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void procesarOrdenOTA </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Atiende una orden OTA recibida por downlink y programa el reporte del resultado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">737</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00605">apagarWiFi()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00143">E_OCUPADO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00306">enviarHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::M</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::m</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00161">ordenOTA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00139">OTA_ERROR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00139">OTA_YA_AL_DIA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00176">otaEnCurso</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::p</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::pendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::trabajo</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00214">versionActual()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00212">versionNum()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a6e2e9d342816f59c9530acdf96df5cea" name="a6e2e9d342816f59c9530acdf96df5cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2e9d342816f59c9530acdf96df5cea">&#9670;&#160;</a></span>downLinkDataHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void downLinkDataHandle </td>
+          <td>(</td>
+          <td class="paramtype">McpsIndication_t *</td>          <td class="paramname"><span class="paramname"><em>ind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback de la librería Heltec para los downlinks. </p>
+<p>Solo guarda banderas; el trabajo pesado se hace en <a class="el" href="#afe461d27b9c48d5921c00d521181f12f" title="Máquina de estados LoRaWAN de la librería Heltec + tareas no bloqueantes (LED, HMI,...">loop()</a> para no bloquear la pila LoRaWAN. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">764</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00125">appTxDutyCycle</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00138">CMD_INTERVALO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00138">CMD_MEDIR_YA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00138">CMD_OTA_WIFI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00138">CMD_REINICIAR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::M</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::m</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00161">ordenOTA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::p</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::pendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00152">phForzado</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00136">PUERTO_CMD</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00153">reinicioSolicitado</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::trabajo</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a>.</p>
+
+</div>
+</div>
+<a id="a384a165c87ab3276d39f00ccfe4c7382" name="a384a165c87ab3276d39f00ccfe4c7382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384a165c87ab3276d39f00ccfe4c7382">&#9670;&#160;</a></span>hayUplinkUrgente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hayUplinkUrgente </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indica si hay un reporte OTA, un evento HMI o una medición forzada pendiente. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">791</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00174">nColaHMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00152">phForzado</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00163">reporteOTAPendiente</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a4fc01d736fe50cf5b977f755b675f11d" name="a4fc01d736fe50cf5b977f755b675f11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fc01d736fe50cf5b977f755b675f11d">&#9670;&#160;</a></span>setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicializa pines, UART del HMI, revisión post-OTA, ADC y la pila LoRaWAN. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">794</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__nodo__ph_8ino_source.html#l00078">ADC_PH_PIN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00066">FW_MAJOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00067">FW_MINOR</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00068">FW_PATCH</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00069">FW_PRODUCTO</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00085">HMI_BAUD</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00083">HMI_RX_PIN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00084">HMI_TX_PIN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00080">LED_PIN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00079">MOSFET_PIN</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00076">NODO_ALIAS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="afe461d27b9c48d5921c00d521181f12f" name="afe461d27b9c48d5921c00d521181f12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&#160;</a></span>loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Máquina de estados LoRaWAN de la librería Heltec + tareas no bloqueantes (LED, HMI, OTA). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">817</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00125">appTxDutyCycle</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00384">atenderHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">enPrueba</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00124">loraWanClass</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00123">loraWanRegion</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00174">nColaHMI</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00161">ordenOTA</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00160">OrdenOTA::pendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00152">phForzado</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00112">PRUEBA_TIMEOUT_MS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00167">pruebaInicioMs</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00153">reinicioSolicitado</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00163">reporteOTAPendiente</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00109">SEPARACION_MIN_TX_MS</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00151">ultimoUplinkMs</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00150">unido</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Documentación de variables</h2>
+<a id="a1c268dc9266df8ca869c23bd17d1e2ea" name="a1c268dc9266df8ca869c23bd17d1e2ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c268dc9266df8ca869c23bd17d1e2ea">&#9670;&#160;</a></span>NODO_ALIAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* NODO_ALIAS = &quot;ph-lab-01&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00076">76</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00794">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a1b953e2848459f97077a4b5934eba88d" name="a1b953e2848459f97077a4b5934eba88d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b953e2848459f97077a4b5934eba88d">&#9670;&#160;</a></span>nwkSKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t nwkSKey[] = { 0x00 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00118">118</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="ab549925205cd6b1eb713405f28fd5549" name="ab549925205cd6b1eb713405f28fd5549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab549925205cd6b1eb713405f28fd5549">&#9670;&#160;</a></span>appSKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t appSKey[] = { 0x00 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00119">119</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="ac51020cf74fc68b40d713ebcc11942ca" name="ac51020cf74fc68b40d713ebcc11942ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51020cf74fc68b40d713ebcc11942ca">&#9670;&#160;</a></span>devAddr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t devAddr = 0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00120">120</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="aa91520c880940f96fc9321b289b981f6" name="aa91520c880940f96fc9321b289b981f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa91520c880940f96fc9321b289b981f6">&#9670;&#160;</a></span>userChannelsMask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t userChannelsMask[6] = { 0xFF00, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00122">122</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a40a635240ce59c6876f12edf7c53fb9d" name="a40a635240ce59c6876f12edf7c53fb9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a635240ce59c6876f12edf7c53fb9d">&#9670;&#160;</a></span>loraWanRegion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LoRaMacRegion_t loraWanRegion = ACTIVE_REGION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00123">123</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="aeb8a534634667650d536d486b63bffe0" name="aeb8a534634667650d536d486b63bffe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb8a534634667650d536d486b63bffe0">&#9670;&#160;</a></span>loraWanClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DeviceClass_t loraWanClass = CLASS_A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00124">124</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="ad4c3c711ac90884a903a522cfadb3e1e" name="ad4c3c711ac90884a903a522cfadb3e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c3c711ac90884a903a522cfadb3e1e">&#9670;&#160;</a></span>appTxDutyCycle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t appTxDutyCycle = <a class="el" href="#ad892b4e6b7ae14ab4b1b98b38d652fcd">INTERVALO_TX_MS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00125">125</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a7aeff5e42a58dd2ff4c2db9fca3ff9b1" name="a7aeff5e42a58dd2ff4c2db9fca3ff9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aeff5e42a58dd2ff4c2db9fca3ff9b1">&#9670;&#160;</a></span>overTheAirActivation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool overTheAirActivation = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00126">126</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a95b8fd0075361f77f2e75f622c81ae90" name="a95b8fd0075361f77f2e75f622c81ae90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95b8fd0075361f77f2e75f622c81ae90">&#9670;&#160;</a></span>loraWanAdr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool loraWanAdr = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00127">127</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a44b39cbd4861b567a0f65cd22a98112d" name="a44b39cbd4861b567a0f65cd22a98112d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44b39cbd4861b567a0f65cd22a98112d">&#9670;&#160;</a></span>keepNet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool keepNet = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00128">128</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="af49d90b861586d671673360da92c8e20" name="af49d90b861586d671673360da92c8e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af49d90b861586d671673360da92c8e20">&#9670;&#160;</a></span>isTxConfirmed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isTxConfirmed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00129">129</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="acb42fe695306337dffc3362cc875e15a" name="acb42fe695306337dffc3362cc875e15a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb42fe695306337dffc3362cc875e15a">&#9670;&#160;</a></span>appPort</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t appPort = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00130">130</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="ad63561b5e35431d2022752db7e280ff0" name="ad63561b5e35431d2022752db7e280ff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63561b5e35431d2022752db7e280ff0">&#9670;&#160;</a></span>confirmedNbTrials</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t confirmedNbTrials = 4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00131">131</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a77f70a9d88156f5f7dbdd99bfaaee64e" name="a77f70a9d88156f5f7dbdd99bfaaee64e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77f70a9d88156f5f7dbdd99bfaaee64e">&#9670;&#160;</a></span>prefs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Preferences prefs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00149">149</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a72be7a4b2a2dc05104517a18fd28c652" name="a72be7a4b2a2dc05104517a18fd28c652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72be7a4b2a2dc05104517a18fd28c652">&#9670;&#160;</a></span>unido</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool unido = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00150">150</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="ac62079a5566ad0f939a20e0d7cce180e" name="ac62079a5566ad0f939a20e0d7cce180e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac62079a5566ad0f939a20e0d7cce180e">&#9670;&#160;</a></span>ultimoUplinkMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ultimoUplinkMs = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00151">151</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a5ed93babc7ffc27abdec6a59aa9eff4c" name="a5ed93babc7ffc27abdec6a59aa9eff4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed93babc7ffc27abdec6a59aa9eff4c">&#9670;&#160;</a></span>phForzado</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool phForzado = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00152">152</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="aab5218e78243eed6e743cb5b94024704" name="aab5218e78243eed6e743cb5b94024704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5218e78243eed6e743cb5b94024704">&#9670;&#160;</a></span>reinicioSolicitado</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool reinicioSolicitado = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00153">153</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>.</p>
+
+</div>
+</div>
+<a id="adbe531f8bb9405aa9566fa5b71e53911" name="adbe531f8bb9405aa9566fa5b71e53911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbe531f8bb9405aa9566fa5b71e53911">&#9670;&#160;</a></span>ultimoPH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ultimoPH = -1.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00155">155</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>.</p>
+
+</div>
+</div>
+<a id="a2c68025aa1420227edea75b1c3b10221" name="a2c68025aa1420227edea75b1c3b10221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c68025aa1420227edea75b1c3b10221">&#9670;&#160;</a></span>estadoPH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t estadoPH = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00156">156</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="a2db75aaf3a9a6ace6b65c3a694c425c1" name="a2db75aaf3a9a6ace6b65c3a694c425c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db75aaf3a9a6ace6b65c3a694c425c1">&#9670;&#160;</a></span>alertaReconocida</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool alertaReconocida = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00157">157</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+</div>
+</div>
+<a id="abe80e39016d1a89e3f5a437b653e4a8a" name="abe80e39016d1a89e3f5a437b653e4a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe80e39016d1a89e3f5a437b653e4a8a">&#9670;&#160;</a></span>ordenOTA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_orden_o_t_a.html">OrdenOTA</a> ordenOTA = { false, 0, 0, 0, 0 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00161">161</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00764">downLinkDataHandle()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a907a97d4720d0144917b6bbc922e394c" name="a907a97d4720d0144917b6bbc922e394c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907a97d4720d0144917b6bbc922e394c">&#9670;&#160;</a></span>reporteOTAPendiente</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool reporteOTAPendiente = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00163">163</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>.</p>
+
+</div>
+</div>
+<a id="adf05124a81e0df78b3b1f88dacf50dfb" name="adf05124a81e0df78b3b1f88dacf50dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf05124a81e0df78b3b1f88dacf50dfb">&#9670;&#160;</a></span>repTrabajo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t repTrabajo = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">164</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a1aaec61af3f2c148357f01b8100254b3" name="a1aaec61af3f2c148357f01b8100254b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aaec61af3f2c148357f01b8100254b3">&#9670;&#160;</a></span>repResultado</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t repResultado = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">164</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a69d599cbce89980477f0e3d5ec1007fa" name="a69d599cbce89980477f0e3d5ec1007fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69d599cbce89980477f0e3d5ec1007fa">&#9670;&#160;</a></span>repDetalle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t repDetalle = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00164">164</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00470">prepararUplinkOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00464">programarReporteOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a5a0f2e3deada957dccf439353ceeb2a9" name="a5a0f2e3deada957dccf439353ceeb2a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0f2e3deada957dccf439353ceeb2a9">&#9670;&#160;</a></span>enPrueba</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool enPrueba = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00166">166</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00492">revertirFirmware()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="ad2d0aa4ffbd4886d24549c3bb98be3dc" name="ad2d0aa4ffbd4886d24549c3bb98be3dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d0aa4ffbd4886d24549c3bb98be3dc">&#9670;&#160;</a></span>pruebaInicioMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long pruebaInicioMs = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00167">167</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="ac7f19f72fa2fcf2417b7196dbdcc8cce" name="ac7f19f72fa2fcf2417b7196dbdcc8cce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7f19f72fa2fcf2417b7196dbdcc8cce">&#9670;&#160;</a></span>trabajoEnPrueba</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t trabajoEnPrueba = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00168">168</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00546">confirmarFirmware()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00514">revisarArranqueTrasOTA()</a>.</p>
+
+</div>
+</div>
+<a id="a7eb461183805c5e69fa578062621b4b8" name="a7eb461183805c5e69fa578062621b4b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb461183805c5e69fa578062621b4b8">&#9670;&#160;</a></span>colaHMI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_evento_h_m_i.html">EventoHMI</a> colaHMI[<a class="el" href="#a1124aab05de59d54f7ab5d320707bb8f">COLA_HMI_MAX</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00173">173</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a4cff3ec34848b06fcf93ef97d5605eec" name="a4cff3ec34848b06fcf93ef97d5605eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cff3ec34848b06fcf93ef97d5605eec">&#9670;&#160;</a></span>nColaHMI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t nColaHMI = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00174">174</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00330">encolarEventoHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00791">hayUplinkUrgente()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00817">loop()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00452">prepararUplinkHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a4581f005573985612ecc374b9ba1dfb9" name="a4581f005573985612ecc374b9ba1dfb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4581f005573985612ecc374b9ba1dfb9">&#9670;&#160;</a></span>ultimoMensajeHMIms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ultimoMensajeHMIms = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00175">175</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00321">hmiConectado()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a0b0b9b34647f41a196d75c170c30daea" name="a0b0b9b34647f41a196d75c170c30daea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b0b9b34647f41a196d75c170c30daea">&#9670;&#160;</a></span>otaEnCurso</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool otaEnCurso = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00176">176</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00737">procesarOrdenOTA()</a>.</p>
+
+</div>
+</div>
+<a id="aa6f9815638af729c13798895f41dcd76" name="aa6f9815638af729c13798895f41dcd76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f9815638af729c13798895f41dcd76">&#9670;&#160;</a></span>patronLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t patronLED[] = { 1000, 1000 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00182">182</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a>.</p>
+
+</div>
+</div>
+<a id="a4845382c8f6d61dd63c4245ab82598ec" name="a4845382c8f6d61dd63c4245ab82598ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4845382c8f6d61dd63c4245ab82598ec">&#9670;&#160;</a></span>pasosPatron</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t pasosPatron = sizeof(<a class="el" href="#aa6f9815638af729c13798895f41dcd76">patronLED</a>) / sizeof(<a class="el" href="#aa6f9815638af729c13798895f41dcd76">patronLED</a>[0])</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00186">186</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a>.</p>
+
+</div>
+</div>
+<a id="a1f0a3227aefb6570660d67952589157d" name="a1f0a3227aefb6570660d67952589157d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f0a3227aefb6570660d67952589157d">&#9670;&#160;</a></span>pasoLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t pasoLED = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00187">187</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a>.</p>
+
+</div>
+</div>
+<a id="af8779346f38243ebbaab6b8c25e90059" name="af8779346f38243ebbaab6b8c25e90059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8779346f38243ebbaab6b8c25e90059">&#9670;&#160;</a></span>ultimoCambioLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ultimoCambioLED = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00188">188</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00195">actualizarLED()</a>.</p>
+
+</div>
+</div>
+<a id="a7a84e16bd3e544abba5da25c4d662f8a" name="a7a84e16bd3e544abba5da25c4d662f8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a84e16bd3e544abba5da25c4d662f8a">&#9670;&#160;</a></span>estadoLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool estadoLED = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00189">189</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00582">conectarWiFiMantenimiento()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00616">ejecutarOTA()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00192">escribirLED()</a>.</p>
+
+</div>
+</div>
+<a id="a077196a01edbd38801963311a1da08e4" name="a077196a01edbd38801963311a1da08e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a077196a01edbd38801963311a1da08e4">&#9670;&#160;</a></span>REGLAS_HMI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_regla_h_m_i.html">ReglaHMI</a> REGLAS_HMI[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Valor inicial:</b><div class="fragment"><div class="line">                          = {</div>
+<div class="line">  { 1, <span class="stringliteral">&quot;Rojo&quot;</span>,     1, <a class="code hl_enumvalue" href="#aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426">ACC_INCIDENTE</a>, <span class="keyword">true</span>  },   </div>
+<div class="line">  { 1, <span class="stringliteral">&quot;Amarillo&quot;</span>, 2, <a class="code hl_enumvalue" href="#aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4">ACC_MEDIR</a>,     <span class="keyword">false</span> },   </div>
+<div class="line">  { 1, <span class="stringliteral">&quot;Verde&quot;</span>,    3, <a class="code hl_enumvalue" href="#aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a">ACC_RECONOCER</a>, <span class="keyword">true</span>  },   </div>
+<div class="line">  { 2, <span class="stringliteral">&quot;punch&quot;</span>,    1, <a class="code hl_enumvalue" href="#aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4">ACC_MEDIR</a>,     <span class="keyword">false</span> },   </div>
+<div class="line">  { 2, <span class="stringliteral">&quot;flex&quot;</span>,     2, <a class="code hl_enumvalue" href="#aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112">ACC_MOSTRAR</a>,   <span class="keyword">false</span> },   </div>
+<div class="line">}</div>
+<div class="ttc" id="ahelmo__nodo__ph_8ino_html_aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4"><div class="ttname"><a href="#aa038beed920a459858bb253ecf1919cea0027e611693503e9b9ba2eaf42eb2ba4">ACC_MEDIR</a></div><div class="ttdeci">@ ACC_MEDIR</div><div class="ttdef"><b>Definición</b> <a href="helmo__nodo__ph_8ino_source.html#l00290">helmo_nodo_ph.ino:290</a></div></div>
+<div class="ttc" id="ahelmo__nodo__ph_8ino_html_aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426"><div class="ttname"><a href="#aa038beed920a459858bb253ecf1919cea6ba7193644c38dbd6c1405b4fda2d426">ACC_INCIDENTE</a></div><div class="ttdeci">@ ACC_INCIDENTE</div><div class="ttdef"><b>Definición</b> <a href="helmo__nodo__ph_8ino_source.html#l00290">helmo_nodo_ph.ino:290</a></div></div>
+<div class="ttc" id="ahelmo__nodo__ph_8ino_html_aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112"><div class="ttname"><a href="#aa038beed920a459858bb253ecf1919cea7d3cdc8c41eceadf9d57c2e527794112">ACC_MOSTRAR</a></div><div class="ttdeci">@ ACC_MOSTRAR</div><div class="ttdef"><b>Definición</b> <a href="helmo__nodo__ph_8ino_source.html#l00290">helmo_nodo_ph.ino:290</a></div></div>
+<div class="ttc" id="ahelmo__nodo__ph_8ino_html_aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a"><div class="ttname"><a href="#aa038beed920a459858bb253ecf1919ceaab00c32ce3788935e4b6b046ff71303a">ACC_RECONOCER</a></div><div class="ttdeci">@ ACC_RECONOCER</div><div class="ttdef"><b>Definición</b> <a href="helmo__nodo__ph_8ino_source.html#l00290">helmo_nodo_ph.ino:290</a></div></div>
+</div><!-- fragment -->
+<p>Significado de cada palabra y gesto. </p>
+<p>Edita esta tabla para cambiar el comportamiento. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00296">296</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="ab7606a93e8116671875f0993037a1625" name="ab7606a93e8116671875f0993037a1625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7606a93e8116671875f0993037a1625">&#9670;&#160;</a></span>N_REGLAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t N_REGLAS = sizeof(<a class="el" href="#a077196a01edbd38801963311a1da08e4">REGLAS_HMI</a>) / sizeof(<a class="el" href="#a077196a01edbd38801963311a1da08e4">REGLAS_HMI</a>[0])</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00303">303</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a686d7d268377986dfb6a09cbeaabebb8" name="a686d7d268377986dfb6a09cbeaabebb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686d7d268377986dfb6a09cbeaabebb8">&#9670;&#160;</a></span>clienteHttp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">WiFiClient clienteHttp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00560">560</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a>.</p>
+
+</div>
+</div>
+<a id="ad43844a30da7ae9edb2b48dad63ff403" name="ad43844a30da7ae9edb2b48dad63ff403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad43844a30da7ae9edb2b48dad63ff403">&#9670;&#160;</a></span>clienteHttps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">WiFiClientSecure clienteHttps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__nodo__ph_8ino_source.html#l00561">561</a> del archivo <a class="el" href="helmo__nodo__ph_8ino_source.html">helmo_nodo_ph.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__nodo__ph_8ino_source.html#l00564">iniciarHTTP()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a href="dir_5f468e01ad10fbe8e3a83e9159b22297.html">helmo_nodo_ph</a></li><li class="navelem"><a href="helmo__nodo__ph_8ino.html">helmo_nodo_ph.ino</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

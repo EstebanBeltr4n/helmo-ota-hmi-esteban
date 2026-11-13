@@ -1,0 +1,1466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HELMO: Referencia del archivo firmware/helmo_hmi_nano/helmo_hmi_nano.ino</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HELMO<span id="projectnumber">&#160;2.0.0</span>
+   </div>
+   <div id="projectbrief">Nodo de pH con OTA híbrida e interfaz de voz y gestos</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('helmo__hmi__nano_8ino.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo helmo_hmi_nano.ino</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>HELMO · Firmware 2 de 2: módulo HMI de voz y gestos para el nodo de pH.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &lt;PDM.h&gt;</code><br />
+<code>#include &lt;speech_recognition_Esteban_inferencing.h&gt;</code><br />
+<code>#include &lt;Arduino_LSM9DS1.h&gt;</code><br />
+<code>#include &quot;edge-impulse-sdk/tensorflow/lite/micro/micro_interpreter.h&quot;</code><br />
+<code>#include &quot;edge-impulse-sdk/tensorflow/lite/micro/micro_mutable_op_resolver.h&quot;</code><br />
+<code>#include &quot;edge-impulse-sdk/tensorflow/lite/schema/schema_generated.h&quot;</code><br />
+<code>#include &quot;model.h&quot;</code><br />
+</div>
+<p><a href="helmo__hmi__nano_8ino_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:inference_5Ft" id="r_inference_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structinference__t.html">inference_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doble buffer de audio para la inferencia continua de Edge Impulse.  <a href="structinference__t.html#details">Más...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:a84f0987db19e2d3300d7c63929613f66" id="r_a84f0987db19e2d3300d7c63929613f66"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a84f0987db19e2d3300d7c63929613f66">EIDSP_QUANTIZE_FILTERBANK</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a40b974887b8b0ed817ed34f2818f5be1" id="r_a40b974887b8b0ed817ed34f2818f5be1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a40b974887b8b0ed817ed34f2818f5be1">EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memitem:a23dd73f96d43b70e7aae25e5daa46525" id="r_a23dd73f96d43b70e7aae25e5daa46525"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a23dd73f96d43b70e7aae25e5daa46525">IMU_REV2</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a062cea6b72f6d4023b7e6ca1d5d1c624" id="r_a062cea6b72f6d4023b7e6ca1d5d1c624"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a062cea6b72f6d4023b7e6ca1d5d1c624">HMI_VERSION</a>&#160;&#160;&#160;&quot;1.0.0&quot;</td></tr>
+<tr class="memitem:a1fac9153314479ad0ad495d752f0224a" id="r_a1fac9153314479ad0ad495d752f0224a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1fac9153314479ad0ad495d752f0224a">UART_BAUD</a>&#160;&#160;&#160;115200</td></tr>
+<tr class="memitem:a706ec36445b226f47a2e9ec1fc789a5d" id="r_a706ec36445b226f47a2e9ec1fc789a5d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a706ec36445b226f47a2e9ec1fc789a5d">NUM_GESTOS</a>&#160;&#160;&#160;(sizeof(<a class="el" href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">GESTOS</a>) / sizeof(<a class="el" href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">GESTOS</a>[0]))</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumeraciones</h2></td></tr>
+<tr class="memitem:aa574175df6ec2a14da8226eb24c65c78" id="r_aa574175df6ec2a14da8226eb24c65c78"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a99054086ab698f83137f6e38af9df9c7">APAGADO</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78ac6d7a6b86caaffc4c728fed61b1d0e4b">ROJO</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78af9efd9e6bd17c0580d8a0432ba1b04a2">VERDE</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78ac2145f36e4c2293e155b3e8cd317a955">AZUL</a>
+, <br />
+&#160;&#160;<a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a7dbbfe3e6f9366325c3f7d4d47f32775">AMARILLO</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a872f25d993d14344612468278683d050">CIAN</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a56926c820ad72d0977e7ee44d9916e62">MAGENTA</a>
+, <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a548e084f75a1ab1b990337d81188593a">BLANCO</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aa574175df6ec2a14da8226eb24c65c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colores disponibles en el LED RGB.  <a href="#aa574175df6ec2a14da8226eb24c65c78">Más...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:aeed8eec76de7e6ed19c637a3d31dc068" id="r_aeed8eec76de7e6ed19c637a3d31dc068"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeed8eec76de7e6ed19c637a3d31dc068">ponerColor</a> (<a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> c)</td></tr>
+<tr class="memdesc:aeed8eec76de7e6ed19c637a3d31dc068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enciende el LED RGB (activo en bajo) con el color indicado.  <br /></td></tr>
+<tr class="memitem:a83797c299acea327eb5a20754f692e81" id="r_a83797c299acea327eb5a20754f692e81"><td class="memItemLeft"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a>&#160;</td><td class="memItemRight"><a class="el" href="#a83797c299acea327eb5a20754f692e81">colorDeEtiqueta</a> (const char *e)</td></tr>
+<tr class="memdesc:a83797c299acea327eb5a20754f692e81"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78" title="Colores disponibles en el LED RGB.">Color</a> con el que se muestra cada palabra o gesto detectado.  <br /></td></tr>
+<tr class="memitem:aa6f599a8ecf1214ecfb4d04702dcfacc" id="r_aa6f599a8ecf1214ecfb4d04702dcfacc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6f599a8ecf1214ecfb4d04702dcfacc">mostrarFeedback</a> (<a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> c, unsigned long ms=1500)</td></tr>
+<tr class="memdesc:aa6f599a8ecf1214ecfb4d04702dcfacc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Muestra un color temporal que tiene prioridad sobre el semáforo.  <br /></td></tr>
+<tr class="memitem:afd0761020b2d358e2601ae87568c0237" id="r_afd0761020b2d358e2601ae87568c0237"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afd0761020b2d358e2601ae87568c0237">actualizarLED</a> ()</td></tr>
+<tr class="memdesc:afd0761020b2d358e2601ae87568c0237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decide el color del LED: retroalimentación, OTA, espera o semáforo de pH.  <br /></td></tr>
+<tr class="memitem:a930b479dcf70fdb7783ed57586059e9b" id="r_a930b479dcf70fdb7783ed57586059e9b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a930b479dcf70fdb7783ed57586059e9b">enviarEvento</a> (char tipo, const char *etiqueta, float confianza)</td></tr>
+<tr class="memdesc:a930b479dcf70fdb7783ed57586059e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envía una detección al nodo por UART con el formato EVT,tipo,etiqueta,confianza.  <br /></td></tr>
+<tr class="memitem:a2dec5b9b708c83c234a0e174a81004d4" id="r_a2dec5b9b708c83c234a0e174a81004d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2dec5b9b708c83c234a0e174a81004d4">procesarLineaNodo</a> (char *linea)</td></tr>
+<tr class="memdesc:a2dec5b9b708c83c234a0e174a81004d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpreta los mensajes del nodo (PH, OTA, ACK).  <br /></td></tr>
+<tr class="memitem:ac8ed5217929b510a24785028be2aefd4" id="r_ac8ed5217929b510a24785028be2aefd4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac8ed5217929b510a24785028be2aefd4">atenderUART</a> ()</td></tr>
+<tr class="memdesc:ac8ed5217929b510a24785028be2aefd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lee el UART sin bloquear y envía un PING (o HOLA si aún no hay pH) cada 10 s.  <br /></td></tr>
+<tr class="memitem:a1a8a3d55302d30250163019950b0894d" id="r_a1a8a3d55302d30250163019950b0894d"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a1a8a3d55302d30250163019950b0894d">pdm_data_ready_inference_callback</a> (void)</td></tr>
+<tr class="memdesc:a1a8a3d55302d30250163019950b0894d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback del micrófono PDM: copia muestras al buffer activo y alterna al llenarse.  <br /></td></tr>
+<tr class="memitem:ab74ee7e3943fe5e0eb9f6c0c2ca18c45" id="r_ab74ee7e3943fe5e0eb9f6c0c2ca18c45"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ab74ee7e3943fe5e0eb9f6c0c2ca18c45">microphone_inference_start</a> (uint32_t n_samples)</td></tr>
+<tr class="memdesc:ab74ee7e3943fe5e0eb9f6c0c2ca18c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserva los buffers de audio y arranca el micrófono a la frecuencia del modelo.  <br /></td></tr>
+<tr class="memitem:a3f715c2399692f3c7368ecda003c8fe0" id="r_a3f715c2399692f3c7368ecda003c8fe0"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a3f715c2399692f3c7368ecda003c8fe0">microphone_audio_signal_get_data</a> (size_t offset, size_t length, float *out_ptr)</td></tr>
+<tr class="memdesc:a3f715c2399692f3c7368ecda003c8fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrega al clasificador las muestras del buffer completo convertidas a float.  <br /></td></tr>
+<tr class="memitem:a028276631e16b0e271f829c67b7bea82" id="r_a028276631e16b0e271f829c67b7bea82"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a028276631e16b0e271f829c67b7bea82">etiquetaIgnorada</a> (const char *e)</td></tr>
+<tr class="memdesc:a028276631e16b0e271f829c67b7bea82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indica si la etiqueta es ruido o desconocido y no debe generar eventos.  <br /></td></tr>
+<tr class="memitem:ade06487bb2f084cd29e4a09d1ce09a6c" id="r_ade06487bb2f084cd29e4a09d1ce09a6c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade06487bb2f084cd29e4a09d1ce09a6c">procesarAudio</a> ()</td></tr>
+<tr class="memdesc:ade06487bb2f084cd29e4a09d1ce09a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clasifica el último trozo de audio y envía la palabra si supera UMBRAL_VOZ.  <br /></td></tr>
+<tr class="memitem:a113be9a442b73d70c0ae09babcfe5d44" id="r_a113be9a442b73d70c0ae09babcfe5d44"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a113be9a442b73d70c0ae09babcfe5d44">iniciarGestos</a> ()</td></tr>
+<tr class="memdesc:a113be9a442b73d70c0ae09babcfe5d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carga el modelo de gestos en TFLite Micro y valida su entrada (119 x 6 floats).  <br /></td></tr>
+<tr class="memitem:ac00fb6e86119f7704fdfa6d11d3f2872" id="r_ac00fb6e86119f7704fdfa6d11d3f2872"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac00fb6e86119f7704fdfa6d11d3f2872">clasificarGesto</a> ()</td></tr>
+<tr class="memdesc:ac00fb6e86119f7704fdfa6d11d3f2872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ejecuta el modelo de gestos y envía el gesto si supera UMBRAL_GESTO.  <br /></td></tr>
+<tr class="memitem:af6aa3f153b337c2b8c25aea7a5facbbc" id="r_af6aa3f153b337c2b8c25aea7a5facbbc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af6aa3f153b337c2b8c25aea7a5facbbc">atenderIMU</a> ()</td></tr>
+<tr class="memdesc:af6aa3f153b337c2b8c25aea7a5facbbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espera un movimiento fuerte, toma 119 muestras normalizadas y clasifica, sin bloquear el audio.  <br /></td></tr>
+<tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
+<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa LED, puertos serie, IMU, modelo de gestos, clasificador de voz y micrófono.  <br /></td></tr>
+<tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
+<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atiende el UART, procesa audio cuando hay un buffer listo, lee el IMU y actualiza el LED.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a038ae69fcd37c5f916d155f0930af26a" id="r_a038ae69fcd37c5f916d155f0930af26a"><td class="memItemLeft">const float&#160;</td><td class="memItemRight"><a class="el" href="#a038ae69fcd37c5f916d155f0930af26a">UMBRAL_VOZ</a> = 0.80</td></tr>
+<tr class="memitem:adc2e7f0ec73fa4f7dc7e8918c0d8b1ec" id="r_adc2e7f0ec73fa4f7dc7e8918c0d8b1ec"><td class="memItemLeft">const float&#160;</td><td class="memItemRight"><a class="el" href="#adc2e7f0ec73fa4f7dc7e8918c0d8b1ec">UMBRAL_GESTO</a> = 0.85</td></tr>
+<tr class="memitem:a34c704396328e1ca8706769abdcc5cdc" id="r_a34c704396328e1ca8706769abdcc5cdc"><td class="memItemLeft">const unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a34c704396328e1ca8706769abdcc5cdc">ENFRIAMIENTO_MS</a> = 2000</td></tr>
+<tr class="memitem:a28a2fa206c7624be019b7e9f3c0fd4b0" id="r_a28a2fa206c7624be019b7e9f3c0fd4b0"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a28a2fa206c7624be019b7e9f3c0fd4b0">ETIQUETAS_IGNORADAS</a> [] = { &quot;ruido&quot;, &quot;noise&quot;, &quot;desconocido&quot;, &quot;unknown&quot;, &quot;_noise&quot;, &quot;_unknown&quot; }</td></tr>
+<tr class="memitem:a8d9281ae6b6f48c79d5bcfe6e9ee1045" id="r_a8d9281ae6b6f48c79d5bcfe6e9ee1045"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">GESTOS</a> [] = { &quot;punch&quot;, &quot;flex&quot; }</td></tr>
+<tr class="memitem:a9b6721bb445bf5bf7191cf177c0bc2c7" id="r_a9b6721bb445bf5bf7191cf177c0bc2c7"><td class="memItemLeft">const float&#160;</td><td class="memItemRight"><a class="el" href="#a9b6721bb445bf5bf7191cf177c0bc2c7">UMBRAL_MOVIMIENTO_G</a> = 2.5</td></tr>
+<tr class="memitem:a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b" id="r_a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b"><td class="memItemLeft">const int&#160;</td><td class="memItemRight"><a class="el" href="#a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b">MUESTRAS_GESTO</a> = 119</td></tr>
+<tr class="memitem:ac48ab33ae40f32e8d752adec5457892d" id="r_ac48ab33ae40f32e8d752adec5457892d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac48ab33ae40f32e8d752adec5457892d">phX100</a> = -1</td></tr>
+<tr class="memitem:a2c68025aa1420227edea75b1c3b10221" id="r_a2c68025aa1420227edea75b1c3b10221"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a2c68025aa1420227edea75b1c3b10221">estadoPH</a> = 0</td></tr>
+<tr class="memitem:a2db75aaf3a9a6ace6b65c3a694c425c1" id="r_a2db75aaf3a9a6ace6b65c3a694c425c1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2db75aaf3a9a6ace6b65c3a694c425c1">alertaReconocida</a> = false</td></tr>
+<tr class="memitem:a97744fcd3e81920e111df7f58eea610e" id="r_a97744fcd3e81920e111df7f58eea610e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a97744fcd3e81920e111df7f58eea610e">otaEnNodo</a> = false</td></tr>
+<tr class="memitem:ad2dc4befe2b4cdab7f356a2c649b9b9f" id="r_ad2dc4befe2b4cdab7f356a2c649b9b9f"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ad2dc4befe2b4cdab7f356a2c649b9b9f">ultimoMensajeNodoMs</a> = 0</td></tr>
+<tr class="memitem:a6e902dad0ba83a80ffeb86faeb597451" id="r_a6e902dad0ba83a80ffeb86faeb597451"><td class="memItemLeft"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6e902dad0ba83a80ffeb86faeb597451">colorFeedback</a> = <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a99054086ab698f83137f6e38af9df9c7">APAGADO</a></td></tr>
+<tr class="memitem:a374e9b955c599dd048d2a8d145d431db" id="r_a374e9b955c599dd048d2a8d145d431db"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a374e9b955c599dd048d2a8d145d431db">feedbackHastaMs</a> = 0</td></tr>
+<tr class="memitem:a62f05283289c80b76ebc65ea232f3054" id="r_a62f05283289c80b76ebc65ea232f3054"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a62f05283289c80b76ebc65ea232f3054">ultimoEventoMs</a> = 0</td></tr>
+<tr class="memitem:a5fe36ec121fc3857a29308445d1c863c" id="r_a5fe36ec121fc3857a29308445d1c863c"><td class="memItemLeft">static <a class="el" href="structinference__t.html">inference_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5fe36ec121fc3857a29308445d1c863c">inference</a></td></tr>
+<tr class="memitem:ac9f1322319c6f6268c837f1bed65ad63" id="r_ac9f1322319c6f6268c837f1bed65ad63"><td class="memItemLeft">static volatile bool&#160;</td><td class="memItemRight"><a class="el" href="#ac9f1322319c6f6268c837f1bed65ad63">record_ready</a> = false</td></tr>
+<tr class="memitem:a7545b0fc897adb304b026f4b29b4bcae" id="r_a7545b0fc897adb304b026f4b29b4bcae"><td class="memItemLeft">static signed short *&#160;</td><td class="memItemRight"><a class="el" href="#a7545b0fc897adb304b026f4b29b4bcae">sampleBuffer</a></td></tr>
+<tr class="memitem:a8c86a09f7ce3952be195531ac2b909af" id="r_a8c86a09f7ce3952be195531ac2b909af"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a8c86a09f7ce3952be195531ac2b909af">print_results</a> = -(<a class="el" href="#a40b974887b8b0ed817ed34f2818f5be1">EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW</a>)</td></tr>
+<tr class="memitem:a82d82c07b3f1c033d474f69c204ab8c2" id="r_a82d82c07b3f1c033d474f69c204ab8c2"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a82d82c07b3f1c033d474f69c204ab8c2">TAM_ARENA_GESTOS</a> = 8 * 1024</td></tr>
+<tr class="memitem:aeaa0c35b795639a3f4b6fc45e2f6188b" id="r_aeaa0c35b795639a3f4b6fc45e2f6188b"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aeaa0c35b795639a3f4b6fc45e2f6188b">arenaGestos</a> [<a class="el" href="#a82d82c07b3f1c033d474f69c204ab8c2">TAM_ARENA_GESTOS</a>]</td></tr>
+<tr class="memitem:a8756e3ef7ec0871170e7d0627ce74005" id="r_a8756e3ef7ec0871170e7d0627ce74005"><td class="memItemLeft">static tflite::MicroMutableOpResolver&lt; 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8756e3ef7ec0871170e7d0627ce74005">resolverGestos</a></td></tr>
+<tr class="memitem:afbac8912157de9b5506978269008f240" id="r_afbac8912157de9b5506978269008f240"><td class="memItemLeft">static tflite::MicroInterpreter *&#160;</td><td class="memItemRight"><a class="el" href="#afbac8912157de9b5506978269008f240">interpreteGestos</a> = nullptr</td></tr>
+<tr class="memitem:ad17cf0bae765848a65ceb60470ec9a4d" id="r_ad17cf0bae765848a65ceb60470ec9a4d"><td class="memItemLeft">static TfLiteTensor *&#160;</td><td class="memItemRight"><a class="el" href="#ad17cf0bae765848a65ceb60470ec9a4d">entradaGestos</a> = nullptr</td></tr>
+<tr class="memitem:aa08b104fffeae7846df58dd9ecfd3924" id="r_aa08b104fffeae7846df58dd9ecfd3924"><td class="memItemLeft">static TfLiteTensor *&#160;</td><td class="memItemRight"><a class="el" href="#aa08b104fffeae7846df58dd9ecfd3924">salidaGestos</a> = nullptr</td></tr>
+<tr class="memitem:a10064b9fd2a2ad4fe3e897b032e0f5f9" id="r_a10064b9fd2a2ad4fe3e897b032e0f5f9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a10064b9fd2a2ad4fe3e897b032e0f5f9">gestosListos</a> = false</td></tr>
+<tr class="memitem:ac63ad70a35f0b4bff0c81b7743ec9c9a" id="r_ac63ad70a35f0b4bff0c81b7743ec9c9a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac63ad70a35f0b4bff0c81b7743ec9c9a">muestrasLeidas</a> = <a class="el" href="#a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b">MUESTRAS_GESTO</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>HELMO · Firmware 2 de 2: módulo HMI de voz y gestos para el nodo de pH. </p>
+<dl class="section author"><dt>Autor</dt><dd>Esteban Eduardo Escarraga </dd></dl>
+<dl class="section version"><dt>Versión</dt><dd>1.0.0 </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>2026-11</dd></dl>
+<ul>
+<li><b>Hardware:</b> Arduino Nano 33 BLE Sense (Rev1 o Rev2), conectado por UART al nodo Heltec V3.</li>
+<li><b>Entorno:</b> Arduino IDE, placa "Arduino Nano 33 BLE" (paquete Arduino Mbed OS Nano Boards).</li>
+</ul>
+<dl class="section user"><dt>Funciones principales</dt><dd><ol type="1">
+<li><b>Voz:</b> reconocimiento continuo con el modelo de Edge Impulse <span class="tt">speech_recognition_Esteban</span> (Amarillo, Rojo, Verde).</li>
+<li><b>Gestos:</b> clasificador de movimiento con el IMU (punch, flex). Usa el TensorFlow Lite Micro incluido en la librería de Edge Impulse para no tener dos copias de TensorFlow.</li>
+<li>Envía al nodo cada detección confiable; el nodo decide la acción y si la reporta a TTN.</li>
+<li>Muestra el pH recibido como <b>semáforo</b> en el LED RGB y cada detección con su color durante 1,5 s.</li>
+</ol>
+</dd></dl>
+<dl class="section user"><dt>Semáforo del LED RGB</dt><dd>verde = normal · amarillo = cerca del límite · rojo parpadeando = alarma sin reconocer · rojo fijo = alarma reconocida · azul parpadeando = OTA en curso · azul tenue = esperando al nodo.</dd></dl>
+<dl class="section user"><dt>Conexión (lógica de 3,3 V en ambas placas)</dt><dd><pre class="fragment"> Nano D1 (TX) -&gt; Heltec GPIO 47 (RX)
+ Nano D0 (RX) &lt;- Heltec GPIO 48 (TX)
+ GND          -- GND
+</pre></dd></dl>
+<dl class="section user"><dt>Protocolo UART (texto, 115200 baud, una línea por mensaje)</dt><dd><pre class="fragment"> Nano -&gt; Heltec:  HOLA,&lt;ver&gt; | PING | EVT,V,&lt;etiqueta&gt;,&lt;conf%&gt; | EVT,G,&lt;etiqueta&gt;,&lt;conf%&gt;
+ Heltec -&gt; Nano:  PH,&lt;pH x100&gt;,&lt;estado&gt;,&lt;reconocida&gt; | OTA,&lt;1|0&gt; | ACK,&lt;etiqueta&gt;
+</pre></dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Instalar el .zip de Edge Impulse y copiar el <span class="tt">model.h</span> de gestos con el array renombrado a <span class="tt">modelo_gestos</span>. Ajustar IMU_REV2 según la placa. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="helmo__nodo__ph_8ino.html" title="HELMO · Firmware 1 de 2: nodo de pH con LoRaWAN Clase A, OTA híbrida segura y enlace HMI.">helmo_nodo_ph.ino</a> </dd></dl>
+
+<p class="definition">Definición en el archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="a84f0987db19e2d3300d7c63929613f66" name="a84f0987db19e2d3300d7c63929613f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f0987db19e2d3300d7c63929613f66">&#9670;&#160;</a></span>EIDSP_QUANTIZE_FILTERBANK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EIDSP_QUANTIZE_FILTERBANK&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00043">43</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+</div>
+</div>
+<a id="a40b974887b8b0ed817ed34f2818f5be1" name="a40b974887b8b0ed817ed34f2818f5be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40b974887b8b0ed817ed34f2818f5be1">&#9670;&#160;</a></span>EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00044">44</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a23dd73f96d43b70e7aae25e5daa46525" name="a23dd73f96d43b70e7aae25e5daa46525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23dd73f96d43b70e7aae25e5daa46525">&#9670;&#160;</a></span>IMU_REV2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IMU_REV2&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00049">49</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+</div>
+</div>
+<a id="a062cea6b72f6d4023b7e6ca1d5d1c624" name="a062cea6b72f6d4023b7e6ca1d5d1c624"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a062cea6b72f6d4023b7e6ca1d5d1c624">&#9670;&#160;</a></span>HMI_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HMI_VERSION&#160;&#160;&#160;&quot;1.0.0&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00062">62</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a1fac9153314479ad0ad495d752f0224a" name="a1fac9153314479ad0ad495d752f0224a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fac9153314479ad0ad495d752f0224a">&#9670;&#160;</a></span>UART_BAUD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UART_BAUD&#160;&#160;&#160;115200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00063">63</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a706ec36445b226f47a2e9ec1fc789a5d" name="a706ec36445b226f47a2e9ec1fc789a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a706ec36445b226f47a2e9ec1fc789a5d">&#9670;&#160;</a></span>NUM_GESTOS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_GESTOS&#160;&#160;&#160;(sizeof(<a class="el" href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">GESTOS</a>) / sizeof(<a class="el" href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">GESTOS</a>[0]))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00075">75</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Documentación de enumeraciones</h2>
+<a id="aa574175df6ec2a14da8226eb24c65c78" name="aa574175df6ec2a14da8226eb24c65c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa574175df6ec2a14da8226eb24c65c78">&#9670;&#160;</a></span>Color</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Colores disponibles en el LED RGB. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78a99054086ab698f83137f6e38af9df9c7" name="aa574175df6ec2a14da8226eb24c65c78a99054086ab698f83137f6e38af9df9c7"></a>APAGADO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78ac6d7a6b86caaffc4c728fed61b1d0e4b" name="aa574175df6ec2a14da8226eb24c65c78ac6d7a6b86caaffc4c728fed61b1d0e4b"></a>ROJO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78af9efd9e6bd17c0580d8a0432ba1b04a2" name="aa574175df6ec2a14da8226eb24c65c78af9efd9e6bd17c0580d8a0432ba1b04a2"></a>VERDE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78ac2145f36e4c2293e155b3e8cd317a955" name="aa574175df6ec2a14da8226eb24c65c78ac2145f36e4c2293e155b3e8cd317a955"></a>AZUL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78a7dbbfe3e6f9366325c3f7d4d47f32775" name="aa574175df6ec2a14da8226eb24c65c78a7dbbfe3e6f9366325c3f7d4d47f32775"></a>AMARILLO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78a872f25d993d14344612468278683d050" name="aa574175df6ec2a14da8226eb24c65c78a872f25d993d14344612468278683d050"></a>CIAN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78a56926c820ad72d0977e7ee44d9916e62" name="aa574175df6ec2a14da8226eb24c65c78a56926c820ad72d0977e7ee44d9916e62"></a>MAGENTA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa574175df6ec2a14da8226eb24c65c78a548e084f75a1ab1b990337d81188593a" name="aa574175df6ec2a14da8226eb24c65c78a548e084f75a1ab1b990337d81188593a"></a>BLANCO&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">84</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="aeed8eec76de7e6ed19c637a3d31dc068" name="aeed8eec76de7e6ed19c637a3d31dc068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed8eec76de7e6ed19c637a3d31dc068">&#9670;&#160;</a></span>ponerColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ponerColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enciende el LED RGB (activo en bajo) con el color indicado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00087">87</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">AMARILLO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">AZUL</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">BLANCO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">CIAN</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">MAGENTA</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00087">ponerColor()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">ROJO</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">VERDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00087">ponerColor()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a83797c299acea327eb5a20754f692e81" name="a83797c299acea327eb5a20754f692e81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83797c299acea327eb5a20754f692e81">&#9670;&#160;</a></span>colorDeEtiqueta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> colorDeEtiqueta </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>e</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78" title="Colores disponibles en el LED RGB.">Color</a> con el que se muestra cada palabra o gesto detectado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00097">97</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">AMARILLO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">BLANCO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">CIAN</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00097">colorDeEtiqueta()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">MAGENTA</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">ROJO</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">VERDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00097">colorDeEtiqueta()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a>.</p>
+
+</div>
+</div>
+<a id="aa6f599a8ecf1214ecfb4d04702dcfacc" name="aa6f599a8ecf1214ecfb4d04702dcfacc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f599a8ecf1214ecfb4d04702dcfacc">&#9670;&#160;</a></span>mostrarFeedback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mostrarFeedback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>ms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1500</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Muestra un color temporal que tiene prioridad sobre el semáforo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>color</td></tr>
+    <tr><td class="paramname">ms</td><td>duración. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">118</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00114">colorFeedback</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00115">feedbackHastaMs</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">mostrarFeedback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">mostrarFeedback()</a>.</p>
+
+</div>
+</div>
+<a id="afd0761020b2d358e2601ae87568c0237" name="afd0761020b2d358e2601ae87568c0237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0761020b2d358e2601ae87568c0237">&#9670;&#160;</a></span>actualizarLED()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void actualizarLED </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decide el color del LED: retroalimentación, OTA, espera o semáforo de pH. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">121</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">alertaReconocida</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">AMARILLO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">APAGADO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">AZUL</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00114">colorFeedback</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">estadoPH</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00115">feedbackHastaMs</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00110">otaEnNodo</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00107">phX100</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00087">ponerColor()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">ROJO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00111">ultimoMensajeNodoMs</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">VERDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a930b479dcf70fdb7783ed57586059e9b" name="a930b479dcf70fdb7783ed57586059e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a930b479dcf70fdb7783ed57586059e9b">&#9670;&#160;</a></span>enviarEvento()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enviarEvento </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>tipo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>etiqueta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>confianza</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Envía una detección al nodo por UART con el formato EVT,tipo,etiqueta,confianza. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tipo</td><td>'V' voz o 'G' gesto </td></tr>
+    <tr><td class="paramname">etiqueta</td><td>clase detectada </td></tr>
+    <tr><td class="paramname">confianza</td><td>probabilidad entre 0 y 1 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">145</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00097">colorDeEtiqueta()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">mostrarFeedback()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">ultimoEventoMs</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a2dec5b9b708c83c234a0e174a81004d4" name="a2dec5b9b708c83c234a0e174a81004d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dec5b9b708c83c234a0e174a81004d4">&#9670;&#160;</a></span>procesarLineaNodo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void procesarLineaNodo </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>linea</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interpreta los mensajes del nodo (PH, OTA, ACK). </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">linea</td><td>mensaje sin salto de línea. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">156</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">alertaReconocida</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">estadoPH</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00110">otaEnNodo</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00107">phX100</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00111">ultimoMensajeNodoMs</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="ac8ed5217929b510a24785028be2aefd4" name="ac8ed5217929b510a24785028be2aefd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ed5217929b510a24785028be2aefd4">&#9670;&#160;</a></span>atenderUART()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atenderUART </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lee el UART sin bloquear y envía un PING (o HOLA si aún no hay pH) cada 10 s. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">178</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00062">HMI_VERSION</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00107">phX100</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a1a8a3d55302d30250163019950b0894d" name="a1a8a3d55302d30250163019950b0894d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a8a3d55302d30250163019950b0894d">&#9670;&#160;</a></span>pdm_data_ready_inference_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdm_data_ready_inference_callback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback del micrófono PDM: copia muestras al buffer activo y alterna al llenarse. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">212</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00202">inference_t::buf_count</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00201">inference_t::buf_ready</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00200">inference_t::buf_select</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00199">inference_t::buffers</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00206">inference</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00203">inference_t::n_samples</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00207">record_ready</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00208">sampleBuffer</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>.</p>
+
+</div>
+</div>
+<a id="ab74ee7e3943fe5e0eb9f6c0c2ca18c45" name="ab74ee7e3943fe5e0eb9f6c0c2ca18c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74ee7e3943fe5e0eb9f6c0c2ca18c45">&#9670;&#160;</a></span>microphone_inference_start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool microphone_inference_start </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>n_samples</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reserva los buffers de audio y arranca el micrófono a la frecuencia del modelo. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">227</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00202">inference_t::buf_count</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00201">inference_t::buf_ready</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00200">inference_t::buf_select</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00199">inference_t::buffers</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00206">inference</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00203">inference_t::n_samples</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00207">record_ready</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00208">sampleBuffer</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="a3f715c2399692f3c7368ecda003c8fe0" name="a3f715c2399692f3c7368ecda003c8fe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f715c2399692f3c7368ecda003c8fe0">&#9670;&#160;</a></span>microphone_audio_signal_get_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int microphone_audio_signal_get_data </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>out_ptr</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entrega al clasificador las muestras del buffer completo convertidas a float. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00247">247</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00200">inference_t::buf_select</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00199">inference_t::buffers</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00206">inference</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00247">microphone_audio_signal_get_data()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00247">microphone_audio_signal_get_data()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a028276631e16b0e271f829c67b7bea82" name="a028276631e16b0e271f829c67b7bea82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a028276631e16b0e271f829c67b7bea82">&#9670;&#160;</a></span>etiquetaIgnorada()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etiquetaIgnorada </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>e</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indica si la etiqueta es ruido o desconocido y no debe generar eventos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00253">253</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00253">etiquetaIgnorada()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00071">ETIQUETAS_IGNORADAS</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00253">etiquetaIgnorada()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="ade06487bb2f084cd29e4a09d1ce09a6c" name="ade06487bb2f084cd29e4a09d1ce09a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade06487bb2f084cd29e4a09d1ce09a6c">&#9670;&#160;</a></span>procesarAudio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void procesarAudio </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clasifica el último trozo de audio y envía la palabra si supera UMBRAL_VOZ. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">259</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00044">EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00070">ENFRIAMIENTO_MS</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00253">etiquetaIgnorada()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00247">microphone_audio_signal_get_data()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00209">print_results</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">ultimoEventoMs</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00068">UMBRAL_VOZ</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a113be9a442b73d70c0ae09babcfe5d44" name="a113be9a442b73d70c0ae09babcfe5d44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113be9a442b73d70c0ae09babcfe5d44">&#9670;&#160;</a></span>iniciarGestos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iniciarGestos </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Carga el modelo de gestos en TFLite Micro y valida su entrada (119 x 6 floats). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">301</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00292">arenaGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00295">entradaGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00294">interpreteGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00078">MUESTRAS_GESTO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00293">resolverGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00296">salidaGestos</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00291">TAM_ARENA_GESTOS</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="ac00fb6e86119f7704fdfa6d11d3f2872" name="ac00fb6e86119f7704fdfa6d11d3f2872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac00fb6e86119f7704fdfa6d11d3f2872">&#9670;&#160;</a></span>clasificarGesto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clasificarGesto </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejecuta el modelo de gestos y envía el gesto si supera UMBRAL_GESTO. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">326</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00070">ENFRIAMIENTO_MS</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00074">GESTOS</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00294">interpreteGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00075">NUM_GESTOS</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00296">salidaGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">ultimoEventoMs</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00069">UMBRAL_GESTO</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>.</p>
+
+</div>
+</div>
+<a id="af6aa3f153b337c2b8c25aea7a5facbbc" name="af6aa3f153b337c2b8c25aea7a5facbbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6aa3f153b337c2b8c25aea7a5facbbc">&#9670;&#160;</a></span>atenderIMU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atenderIMU </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Espera un movimiento fuerte, toma 119 muestras normalizadas y clasifica, sin bloquear el audio. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">341</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00070">ENFRIAMIENTO_MS</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00295">entradaGestos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00297">gestosListos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00078">MUESTRAS_GESTO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00298">muestrasLeidas</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">ultimoEventoMs</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00077">UMBRAL_MOVIMIENTO_G</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>.</p>
+
+</div>
+</div>
+<a id="a4fc01d736fe50cf5b977f755b675f11d" name="a4fc01d736fe50cf5b977f755b675f11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fc01d736fe50cf5b977f755b675f11d">&#9670;&#160;</a></span>setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicializa LED, puertos serie, IMU, modelo de gestos, clasificador de voz y micrófono. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">369</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">APAGADO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00084">BLANCO</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00297">gestosListos</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00062">HMI_VERSION</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00087">ponerColor()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00063">UART_BAUD</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="afe461d27b9c48d5921c00d521181f12f" name="afe461d27b9c48d5921c00d521181f12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&#160;</a></span>loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Atiende el UART, procesa audio cuando hay un buffer listo, lee el IMU y actualiza el LED. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">394</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00201">inference_t::buf_ready</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00206">inference</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Documentación de variables</h2>
+<a id="a038ae69fcd37c5f916d155f0930af26a" name="a038ae69fcd37c5f916d155f0930af26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a038ae69fcd37c5f916d155f0930af26a">&#9670;&#160;</a></span>UMBRAL_VOZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float UMBRAL_VOZ = 0.80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00068">68</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="adc2e7f0ec73fa4f7dc7e8918c0d8b1ec" name="adc2e7f0ec73fa4f7dc7e8918c0d8b1ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2e7f0ec73fa4f7dc7e8918c0d8b1ec">&#9670;&#160;</a></span>UMBRAL_GESTO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float UMBRAL_GESTO = 0.85</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00069">69</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>.</p>
+
+</div>
+</div>
+<a id="a34c704396328e1ca8706769abdcc5cdc" name="a34c704396328e1ca8706769abdcc5cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c704396328e1ca8706769abdcc5cdc">&#9670;&#160;</a></span>ENFRIAMIENTO_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned long ENFRIAMIENTO_MS = 2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00070">70</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a28a2fa206c7624be019b7e9f3c0fd4b0" name="a28a2fa206c7624be019b7e9f3c0fd4b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a2fa206c7624be019b7e9f3c0fd4b0">&#9670;&#160;</a></span>ETIQUETAS_IGNORADAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* ETIQUETAS_IGNORADAS[] = { &quot;ruido&quot;, &quot;noise&quot;, &quot;desconocido&quot;, &quot;unknown&quot;, &quot;_noise&quot;, &quot;_unknown&quot; }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00071">71</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00253">etiquetaIgnorada()</a>.</p>
+
+</div>
+</div>
+<a id="a8d9281ae6b6f48c79d5bcfe6e9ee1045" name="a8d9281ae6b6f48c79d5bcfe6e9ee1045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9281ae6b6f48c79d5bcfe6e9ee1045">&#9670;&#160;</a></span>GESTOS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* GESTOS[] = { &quot;punch&quot;, &quot;flex&quot; }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00074">74</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>.</p>
+
+</div>
+</div>
+<a id="a9b6721bb445bf5bf7191cf177c0bc2c7" name="a9b6721bb445bf5bf7191cf177c0bc2c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6721bb445bf5bf7191cf177c0bc2c7">&#9670;&#160;</a></span>UMBRAL_MOVIMIENTO_G</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float UMBRAL_MOVIMIENTO_G = 2.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00077">77</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>.</p>
+
+</div>
+</div>
+<a id="a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b" name="a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b">&#9670;&#160;</a></span>MUESTRAS_GESTO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int MUESTRAS_GESTO = 119</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00078">78</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="ac48ab33ae40f32e8d752adec5457892d" name="ac48ab33ae40f32e8d752adec5457892d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac48ab33ae40f32e8d752adec5457892d">&#9670;&#160;</a></span>phX100</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int phX100 = -1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00107">107</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00178">atenderUART()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="a2c68025aa1420227edea75b1c3b10221" name="a2c68025aa1420227edea75b1c3b10221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c68025aa1420227edea75b1c3b10221">&#9670;&#160;</a></span>estadoPH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t estadoPH = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00108">108</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="a2db75aaf3a9a6ace6b65c3a694c425c1" name="a2db75aaf3a9a6ace6b65c3a694c425c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db75aaf3a9a6ace6b65c3a694c425c1">&#9670;&#160;</a></span>alertaReconocida</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool alertaReconocida = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00109">109</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00314">enviarPHaHMI()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00423">prepararUplinkPH()</a>, <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="a97744fcd3e81920e111df7f58eea610e" name="a97744fcd3e81920e111df7f58eea610e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97744fcd3e81920e111df7f58eea610e">&#9670;&#160;</a></span>otaEnNodo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool otaEnNodo = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00110">110</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="ad2dc4befe2b4cdab7f356a2c649b9b9f" name="ad2dc4befe2b4cdab7f356a2c649b9b9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2dc4befe2b4cdab7f356a2c649b9b9f">&#9670;&#160;</a></span>ultimoMensajeNodoMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ultimoMensajeNodoMs = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00111">111</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00156">procesarLineaNodo()</a>.</p>
+
+</div>
+</div>
+<a id="a6e902dad0ba83a80ffeb86faeb597451" name="a6e902dad0ba83a80ffeb86faeb597451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e902dad0ba83a80ffeb86faeb597451">&#9670;&#160;</a></span>colorFeedback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa574175df6ec2a14da8226eb24c65c78">Color</a> colorFeedback = <a class="el" href="#aa574175df6ec2a14da8226eb24c65c78a99054086ab698f83137f6e38af9df9c7">APAGADO</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00114">114</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">mostrarFeedback()</a>.</p>
+
+</div>
+</div>
+<a id="a374e9b955c599dd048d2a8d145d431db" name="a374e9b955c599dd048d2a8d145d431db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374e9b955c599dd048d2a8d145d431db">&#9670;&#160;</a></span>feedbackHastaMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long feedbackHastaMs = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00115">115</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00121">actualizarLED()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00118">mostrarFeedback()</a>.</p>
+
+</div>
+</div>
+<a id="a62f05283289c80b76ebc65ea232f3054" name="a62f05283289c80b76ebc65ea232f3054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f05283289c80b76ebc65ea232f3054">&#9670;&#160;</a></span>ultimoEventoMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ultimoEventoMs = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00137">137</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00145">enviarEvento()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a> y <a class="el" href="helmo__nodo__ph_8ino_source.html#l00339">procesarLineaHMI()</a>.</p>
+
+</div>
+</div>
+<a id="a5fe36ec121fc3857a29308445d1c863c" name="a5fe36ec121fc3857a29308445d1c863c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe36ec121fc3857a29308445d1c863c">&#9670;&#160;</a></span>inference</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinference__t.html">inference_t</a> inference</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00206">206</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00394">loop()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00247">microphone_audio_signal_get_data()</a>, <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>.</p>
+
+</div>
+</div>
+<a id="ac9f1322319c6f6268c837f1bed65ad63" name="ac9f1322319c6f6268c837f1bed65ad63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9f1322319c6f6268c837f1bed65ad63">&#9670;&#160;</a></span>record_ready</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool record_ready = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00207">207</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>.</p>
+
+</div>
+</div>
+<a id="a7545b0fc897adb304b026f4b29b4bcae" name="a7545b0fc897adb304b026f4b29b4bcae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7545b0fc897adb304b026f4b29b4bcae">&#9670;&#160;</a></span>sampleBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">signed short* sampleBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00208">208</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00227">microphone_inference_start()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00212">pdm_data_ready_inference_callback()</a>.</p>
+
+</div>
+</div>
+<a id="a8c86a09f7ce3952be195531ac2b909af" name="a8c86a09f7ce3952be195531ac2b909af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c86a09f7ce3952be195531ac2b909af">&#9670;&#160;</a></span>print_results</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int print_results = -(<a class="el" href="#a40b974887b8b0ed817ed34f2818f5be1">EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00209">209</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00259">procesarAudio()</a>.</p>
+
+</div>
+</div>
+<a id="a82d82c07b3f1c033d474f69c204ab8c2" name="a82d82c07b3f1c033d474f69c204ab8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d82c07b3f1c033d474f69c204ab8c2">&#9670;&#160;</a></span>TAM_ARENA_GESTOS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TAM_ARENA_GESTOS = 8 * 1024</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00291">291</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="aeaa0c35b795639a3f4b6fc45e2f6188b" name="aeaa0c35b795639a3f4b6fc45e2f6188b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa0c35b795639a3f4b6fc45e2f6188b">&#9670;&#160;</a></span>arenaGestos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t arenaGestos[<a class="el" href="#a82d82c07b3f1c033d474f69c204ab8c2">TAM_ARENA_GESTOS</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00292">292</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="a8756e3ef7ec0871170e7d0627ce74005" name="a8756e3ef7ec0871170e7d0627ce74005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8756e3ef7ec0871170e7d0627ce74005">&#9670;&#160;</a></span>resolverGestos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tflite::MicroMutableOpResolver&lt;4&gt; resolverGestos</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00293">293</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="afbac8912157de9b5506978269008f240" name="afbac8912157de9b5506978269008f240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbac8912157de9b5506978269008f240">&#9670;&#160;</a></span>interpreteGestos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tflite::MicroInterpreter* interpreteGestos = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00294">294</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="ad17cf0bae765848a65ceb60470ec9a4d" name="ad17cf0bae765848a65ceb60470ec9a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad17cf0bae765848a65ceb60470ec9a4d">&#9670;&#160;</a></span>entradaGestos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TfLiteTensor* entradaGestos = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00295">295</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="aa08b104fffeae7846df58dd9ecfd3924" name="aa08b104fffeae7846df58dd9ecfd3924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa08b104fffeae7846df58dd9ecfd3924">&#9670;&#160;</a></span>salidaGestos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TfLiteTensor* salidaGestos = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00296">296</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00326">clasificarGesto()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00301">iniciarGestos()</a>.</p>
+
+</div>
+</div>
+<a id="a10064b9fd2a2ad4fe3e897b032e0f5f9" name="a10064b9fd2a2ad4fe3e897b032e0f5f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10064b9fd2a2ad4fe3e897b032e0f5f9">&#9670;&#160;</a></span>gestosListos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool gestosListos = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00297">297</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a> y <a class="el" href="helmo__hmi__nano_8ino_source.html#l00369">setup()</a>.</p>
+
+</div>
+</div>
+<a id="ac63ad70a35f0b4bff0c81b7743ec9c9a" name="ac63ad70a35f0b4bff0c81b7743ec9c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63ad70a35f0b4bff0c81b7743ec9c9a">&#9670;&#160;</a></span>muestrasLeidas</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int muestrasLeidas = <a class="el" href="#a6e7c7fdaf3ad8a8b2c82f5e1f3c3be1b">MUESTRAS_GESTO</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="helmo__hmi__nano_8ino_source.html#l00298">298</a> del archivo <a class="el" href="helmo__hmi__nano_8ino_source.html">helmo_hmi_nano.ino</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="helmo__hmi__nano_8ino_source.html#l00341">atenderIMU()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a href="dir_f878c918f3ccfae0e8332c0805effab2.html">helmo_hmi_nano</a></li><li class="navelem"><a href="helmo__hmi__nano_8ino.html">helmo_hmi_nano.ino</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

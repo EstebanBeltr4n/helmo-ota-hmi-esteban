@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HELMO: Archivo de código fuente servidor/firmar_firmware.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HELMO<span id="projectnumber">&#160;2.0.0</span>
+   </div>
+   <div id="projectbrief">Nodo de pH con OTA híbrida e interfaz de voz y gestos</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('firmar__firmware_8py_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">firmar_firmware.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="firmar__firmware_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html">    1</a></span><span class="comment">#!/usr/bin/env python3</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">@file firmar_firmware.py</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">@brief HELMO - Firma y publicación de firmware para la OTA híbrida.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">  llaves     Genera el par de llaves ECDSA P-256 (una sola vez) y el clave_publica_ota.h del nodo.</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">  firmar     Firma un .bin, lo copia al servidor de distribución y escribe manifest.json.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">  verificar  Comprueba un manifiesto y su imagen con la llave pública (lo mismo que hace el nodo).</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="stringliteral">Mensaje firmado (idéntico en el firmware):</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral">    HELMO-OTA|&lt;producto&gt;|&lt;version&gt;|&lt;tamano&gt;|&lt;sha256 hex en minúsculas&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">Requisito: pip install cryptography</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> argparse</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> base64</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">import</span> hashlib</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">import</span> json</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">import</span> os</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> shutil</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">import</span> sys</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timezone</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">from</span> cryptography.exceptions <span class="keyword">import</span> InvalidSignature</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">from</span> cryptography.hazmat.primitives <span class="keyword">import</span> hashes, serialization</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">from</span> cryptography.hazmat.primitives.asymmetric <span class="keyword">import</span> ec</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a994d98100f2ca78e7f4ff4fb1001cb89">   29</a></span>PRODUCTO_DEFECTO = <span class="stringliteral">&quot;helmo-ph-node&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a175fd35480ef3cbf4e8a60610747fbbd">   30</a></span>CANAL_DEFECTO = <span class="stringliteral">&quot;ph-node&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="" data-end="">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a4783a7eccd7ff9df5e4ba527b21af5df">   33</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#a4783a7eccd7ff9df5e4ba527b21af5df">mensaje_canonico</a>(producto: str, version: str, tamano: int, sha256_hex: str) -&gt; bytes:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Texto exacto que se firma; debe coincidir con el que arma el nodo.</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">    @return bytes &quot;HELMO-OTA|producto|versión|tamaño|sha256&quot;.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> f<span class="stringliteral">&quot;HELMO-OTA|{producto}|{version}|{tamano}|{sha256_hex.lower()}&quot;</span>.encode()</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+</div>
+<div class="foldopen" id="foldopen00039" data-start="" data-end="">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">   39</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">version_tupla</a>(v: str):</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Convierte &quot;M.m.p&quot; en una tupla comparable.</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="stringliteral">    @exception ValueError si el formato no es válido.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    partes = v.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> len(partes) != 3 <span class="keywordflow">or</span> <span class="keywordflow">not</span> all(p.isdigit() <span class="keywordflow">and</span> 0 &lt;= int(p) &lt;= 255 <span class="keywordflow">for</span> p <span class="keywordflow">in</span> partes):</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">raise</span> ValueError(f<span class="stringliteral">&quot;versión inválida &#39;{v}&#39;: usa M.m.p con valores 0-255&quot;</span>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> tuple(int(p) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> partes)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+</div>
+<div class="foldopen" id="foldopen00048" data-start="" data-end="">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#ad9599ff4b87cefd1b61f57df73149865">   48</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#ad9599ff4b87cefd1b61f57df73149865">header_c</a>(pem: str) -&gt; str:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Genera el contenido de clave_publica_ota.h a partir de la clave PEM.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    lineas = <span class="stringliteral">&quot;&quot;</span>.join(f<span class="stringliteral">&#39;  &quot;{l}\\n&quot;\n&#39;</span> <span class="keywordflow">for</span> l <span class="keywordflow">in</span> pem.strip().splitlines())</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> (</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="stringliteral">&quot;/**\n * @file clave_publica_ota.h\n&quot;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="stringliteral">&quot; * @brief Clave pública ECDSA P-256 con la que el nodo verifica las actualizaciones.\n&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="stringliteral">&quot; * @details Generado por firmar_firmware.py. La clave pública NO es secreta.\n */\n&quot;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="stringliteral">&quot;#pragma once\n\n/** @brief Clave pública en formato PEM (SubjectPublicKeyInfo). */\n&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="stringliteral">&quot;static const char OTA_CLAVE_PUBLICA_PEM[] =\n&quot;</span> + lineas.rstrip(<span class="stringliteral">&quot;\n&quot;</span>) + <span class="stringliteral">&quot;;\n&quot;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    )</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+</div>
+<div class="foldopen" id="foldopen00060" data-start="" data-end="">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a3fcf8ec8bca8b773b5803f8a932fe577">   60</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#a3fcf8ec8bca8b773b5803f8a932fe577">cmd_llaves</a>(a):</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Crea el par de llaves ECDSA P-256 (una sola vez) y, si se pide, el header del nodo.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    d = Path(a.dir)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    d.mkdir(parents=<span class="keyword">True</span>, exist_ok=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    priv_path, pub_path = d / <span class="stringliteral">&quot;ota_privada.pem&quot;</span>, d / <span class="stringliteral">&quot;ota_publica.pem&quot;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> priv_path.exists() <span class="keywordflow">and</span> <span class="keywordflow">not</span> a.forzar:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        sys.exit(f<span class="stringliteral">&quot;Ya existe {priv_path}. Usa --forzar solo si quieres REEMPLAZARLA &quot;</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                 <span class="stringliteral">&quot;(los nodos actuales dejarían de aceptar firmware nuevo).&quot;</span>)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    llave = ec.generate_private_key(ec.SECP256R1())</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    priv_path.write_bytes(llave.private_bytes(</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8, serialization.NoEncryption()))</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    os.chmod(priv_path, 0o600)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    pub_pem = llave.public_key().public_bytes(</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo).decode()</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    pub_path.write_text(pub_pem)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    print(f<span class="stringliteral">&quot;Llave privada: {priv_path} (permisos 600, NO la compartas ni la subas a git)&quot;</span>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    print(f<span class="stringliteral">&quot;Llave pública: {pub_path}&quot;</span>)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> a.header:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        Path(a.header).write_text(<a class="code hl_function" href="namespacefirmar__firmware.html#ad9599ff4b87cefd1b61f57df73149865">header_c</a>(pub_pem))</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        print(f<span class="stringliteral">&quot;Header para el nodo: {a.header}&quot;</span>)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        print(<span class="stringliteral">&quot;\n--- Pega esto en firmware/helmo_nodo_ph/clave_publica_ota.h ---\n&quot;</span>)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        print(<a class="code hl_function" href="namespacefirmar__firmware.html#ad9599ff4b87cefd1b61f57df73149865">header_c</a>(pub_pem))</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+</div>
+<div class="foldopen" id="foldopen00085" data-start="" data-end="">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a62e5aa74b1acbb0cb923eaf0c9d33bad">   85</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#a62e5aa74b1acbb0cb923eaf0c9d33bad">cmd_firmar</a>(a):</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Firma un .bin, lo publica en el servidor de distribución y escribe manifest.json.</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="stringliteral">    @details Rechaza imágenes que no son de aplicación ESP32 y versiones no mayores a la publicada.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    binario = Path(a.bin).read_bytes()</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> binario <span class="keywordflow">or</span> binario[0] != 0xE9:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        sys.exit(<span class="stringliteral">&quot;El archivo no parece una imagen de aplicación ESP32 (byte mágico 0xE9). &quot;</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                 <span class="stringliteral">&quot;Usa el .ino.bin de &#39;Sketch &gt; Export Compiled Binary&#39;, no el .merged.bin.&quot;</span>)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">version_tupla</a>(a.version)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    destino = Path(a.destino) / a.canal</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    destino.mkdir(parents=<span class="keyword">True</span>, exist_ok=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    manifiesto_path = destino / <span class="stringliteral">&quot;manifest.json&quot;</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span> manifiesto_path.exists() <span class="keywordflow">and</span> <span class="keywordflow">not</span> a.forzar:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        anterior = json.loads(manifiesto_path.read_text())</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> <a class="code hl_function" href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">version_tupla</a>(a.version) &lt;= <a class="code hl_function" href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">version_tupla</a>(anterior[<span class="stringliteral">&quot;version&quot;</span>]):</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            sys.exit(f<span class="stringliteral">&quot;La versión {a.version} no es mayor que la publicada ({anterior[&#39;version&#39;]}). &quot;</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                     <span class="stringliteral">&quot;Los nodos la rechazarían (anti-downgrade).&quot;</span>)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    llave = serialization.load_pem_private_key(Path(a.privada).read_bytes(), password=<span class="keywordtype">None</span>)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    sha = hashlib.sha256(binario).hexdigest()</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    firma = llave.sign(<a class="code hl_function" href="namespacefirmar__firmware.html#a4783a7eccd7ff9df5e4ba527b21af5df">mensaje_canonico</a>(a.producto, a.version, len(binario), sha),</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                       ec.ECDSA(hashes.SHA256()))</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    archivo = f<span class="stringliteral">&quot;{a.producto}-{a.version}.bin&quot;</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    shutil.copyfile(a.bin, destino / archivo)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    manifiesto = {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="stringliteral">&quot;producto&quot;</span>: a.producto,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="stringliteral">&quot;version&quot;</span>: a.version,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="stringliteral">&quot;archivo&quot;</span>: archivo,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="stringliteral">&quot;tamano&quot;</span>: len(binario),</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="stringliteral">&quot;sha256&quot;</span>: sha,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="stringliteral">&quot;firma&quot;</span>: base64.b64encode(firma).decode(),</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="stringliteral">&quot;publicado&quot;</span>: datetime.now(timezone.utc).isoformat(timespec=<span class="stringliteral">&quot;seconds&quot;</span>),</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="stringliteral">&quot;notas&quot;</span>: a.notas <span class="keywordflow">or</span> <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    texto = json.dumps(manifiesto, indent=2, ensure_ascii=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    (destino / f<span class="stringliteral">&quot;manifest-{a.version}.json&quot;</span>).write_text(texto)   <span class="comment"># histórico</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    manifiesto_path.write_text(texto)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    print(f<span class="stringliteral">&quot;Publicado {archivo} ({len(binario)} bytes)\nSHA-256 {sha}\nManifiesto: {manifiesto_path}&quot;</span>)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+</div>
+<div class="foldopen" id="foldopen00127" data-start="" data-end="">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a7a3c09dd299b25d3b4eb86fb2b1dd49c">  127</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#a7a3c09dd299b25d3b4eb86fb2b1dd49c">cmd_verificar</a>(a):</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Comprueba tamaño, SHA-256 y firma de un manifiesto, igual que lo hace el nodo.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    m = json.loads(Path(a.manifiesto).read_text())</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    imagen = Path(a.manifiesto).parent / m[<span class="stringliteral">&quot;archivo&quot;</span>]</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    datos = imagen.read_bytes()</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    pub = serialization.load_pem_public_key(Path(a.publica).read_bytes())</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    sha = hashlib.sha256(datos).hexdigest()</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    ok = <span class="keyword">True</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">if</span> len(datos) != m[<span class="stringliteral">&quot;tamano&quot;</span>]:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        print(<span class="stringliteral">&quot;✗ El tamaño no coincide&quot;</span>); ok = <span class="keyword">False</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">if</span> sha != m[<span class="stringliteral">&quot;sha256&quot;</span>].lower():</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        print(<span class="stringliteral">&quot;✗ El SHA-256 de la imagen no coincide con el manifiesto&quot;</span>); ok = <span class="keyword">False</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        pub.verify(base64.b64decode(m[<span class="stringliteral">&quot;firma&quot;</span>]),</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                   <a class="code hl_function" href="namespacefirmar__firmware.html#a4783a7eccd7ff9df5e4ba527b21af5df">mensaje_canonico</a>(m[<span class="stringliteral">&quot;producto&quot;</span>], m[<span class="stringliteral">&quot;version&quot;</span>], m[<span class="stringliteral">&quot;tamano&quot;</span>], m[<span class="stringliteral">&quot;sha256&quot;</span>]),</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                   ec.ECDSA(hashes.SHA256()))</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        print(<span class="stringliteral">&quot;✓ Firma válida&quot;</span>)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">except</span> InvalidSignature:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        print(<span class="stringliteral">&quot;✗ FIRMA INVÁLIDA&quot;</span>); ok = <span class="keyword">False</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    print(f<span class="stringliteral">&quot;{&#39;✓&#39; if ok else &#39;✗&#39;} {m[&#39;producto&#39;]} v{m[&#39;version&#39;]} ({m[&#39;tamano&#39;]} bytes)&quot;</span>)</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    sys.exit(0 <span class="keywordflow">if</span> ok <span class="keywordflow">else</span> 1)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+</div>
+<div class="foldopen" id="foldopen00150" data-start="" data-end="">
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="namespacefirmar__firmware.html#a51af30a60f9f02777c6396b8247e356f">  150</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefirmar__firmware.html#a51af30a60f9f02777c6396b8247e356f">main</a>():</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="stringliteral">&quot;&quot;&quot;! @brief Punto de entrada de la línea de comandos.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    sub = p.add_subparsers(dest=<span class="stringliteral">&quot;cmd&quot;</span>, required=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    s = sub.add_parser(<span class="stringliteral">&quot;llaves&quot;</span>, help=<span class="stringliteral">&quot;generar el par de llaves&quot;</span>)</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    s.add_argument(<span class="stringliteral">&quot;--dir&quot;</span>, default=<span class="stringliteral">&quot;llaves&quot;</span>)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    s.add_argument(<span class="stringliteral">&quot;--header&quot;</span>, help=<span class="stringliteral">&quot;ruta de clave_publica_ota.h a escribir&quot;</span>)</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    s.add_argument(<span class="stringliteral">&quot;--forzar&quot;</span>, action=<span class="stringliteral">&quot;store_true&quot;</span>)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    s.set_defaults(fn=cmd_llaves)</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    s = sub.add_parser(<span class="stringliteral">&quot;firmar&quot;</span>, help=<span class="stringliteral">&quot;firmar y publicar un .bin&quot;</span>)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    s.add_argument(<span class="stringliteral">&quot;--bin&quot;</span>, required=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    s.add_argument(<span class="stringliteral">&quot;--version&quot;</span>, required=<span class="keyword">True</span>, help=<span class="stringliteral">&quot;M.m.p, igual a FW_MAJOR.FW_MINOR.FW_PATCH del .ino&quot;</span>)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    s.add_argument(<span class="stringliteral">&quot;--privada&quot;</span>, default=<span class="stringliteral">&quot;llaves/ota_privada.pem&quot;</span>)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    s.add_argument(<span class="stringliteral">&quot;--destino&quot;</span>, default=<span class="stringliteral">&quot;/opt/helmo/ota&quot;</span>)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    s.add_argument(<span class="stringliteral">&quot;--producto&quot;</span>, default=PRODUCTO_DEFECTO)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    s.add_argument(<span class="stringliteral">&quot;--canal&quot;</span>, default=CANAL_DEFECTO)</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    s.add_argument(<span class="stringliteral">&quot;--notas&quot;</span>)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    s.add_argument(<span class="stringliteral">&quot;--forzar&quot;</span>, action=<span class="stringliteral">&quot;store_true&quot;</span>, help=<span class="stringliteral">&quot;permite publicar una versión no mayor&quot;</span>)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    s.set_defaults(fn=cmd_firmar)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    s = sub.add_parser(<span class="stringliteral">&quot;verificar&quot;</span>, help=<span class="stringliteral">&quot;verificar un manifiesto publicado&quot;</span>)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    s.add_argument(<span class="stringliteral">&quot;--manifiesto&quot;</span>, required=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    s.add_argument(<span class="stringliteral">&quot;--publica&quot;</span>, default=<span class="stringliteral">&quot;llaves/ota_publica.pem&quot;</span>)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    s.set_defaults(fn=cmd_verificar)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    a = p.parse_args()</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    a.fn(a)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_function" href="namespacefirmar__firmware.html#a51af30a60f9f02777c6396b8247e356f">main</a>()</div>
+<div class="ttc" id="anamespacefirmar__firmware_html_a3fcf8ec8bca8b773b5803f8a932fe577"><div class="ttname"><a href="namespacefirmar__firmware.html#a3fcf8ec8bca8b773b5803f8a932fe577">firmar_firmware.cmd_llaves</a></div><div class="ttdeci">cmd_llaves(a)</div><div class="ttdoc">Crea el par de llaves ECDSA P-256 (una sola vez) y, si se pide, el header del nodo.</div><div class="ttdef"><b>Definición</b> <a href="#l00060">firmar_firmware.py:60</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_a4783a7eccd7ff9df5e4ba527b21af5df"><div class="ttname"><a href="namespacefirmar__firmware.html#a4783a7eccd7ff9df5e4ba527b21af5df">firmar_firmware.mensaje_canonico</a></div><div class="ttdeci">bytes mensaje_canonico(str producto, str version, int tamano, str sha256_hex)</div><div class="ttdoc">Texto exacto que se firma; debe coincidir con el que arma el nodo.</div><div class="ttdef"><b>Definición</b> <a href="#l00033">firmar_firmware.py:33</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_a51af30a60f9f02777c6396b8247e356f"><div class="ttname"><a href="namespacefirmar__firmware.html#a51af30a60f9f02777c6396b8247e356f">firmar_firmware.main</a></div><div class="ttdeci">main()</div><div class="ttdoc">Punto de entrada de la línea de comandos.</div><div class="ttdef"><b>Definición</b> <a href="#l00150">firmar_firmware.py:150</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_a62e5aa74b1acbb0cb923eaf0c9d33bad"><div class="ttname"><a href="namespacefirmar__firmware.html#a62e5aa74b1acbb0cb923eaf0c9d33bad">firmar_firmware.cmd_firmar</a></div><div class="ttdeci">cmd_firmar(a)</div><div class="ttdoc">Firma un .bin, lo publica en el servidor de distribución y escribe manifest.json.</div><div class="ttdef"><b>Definición</b> <a href="#l00085">firmar_firmware.py:85</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_a7a3c09dd299b25d3b4eb86fb2b1dd49c"><div class="ttname"><a href="namespacefirmar__firmware.html#a7a3c09dd299b25d3b4eb86fb2b1dd49c">firmar_firmware.cmd_verificar</a></div><div class="ttdeci">cmd_verificar(a)</div><div class="ttdoc">Comprueba tamaño, SHA-256 y firma de un manifiesto, igual que lo hace el nodo.</div><div class="ttdef"><b>Definición</b> <a href="#l00127">firmar_firmware.py:127</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_abce885d4e7e7738bbf56e98a76b8e63f"><div class="ttname"><a href="namespacefirmar__firmware.html#abce885d4e7e7738bbf56e98a76b8e63f">firmar_firmware.version_tupla</a></div><div class="ttdeci">version_tupla(str v)</div><div class="ttdoc">Convierte &quot;M.m.p&quot; en una tupla comparable.</div><div class="ttdef"><b>Definición</b> <a href="#l00039">firmar_firmware.py:39</a></div></div>
+<div class="ttc" id="anamespacefirmar__firmware_html_ad9599ff4b87cefd1b61f57df73149865"><div class="ttname"><a href="namespacefirmar__firmware.html#ad9599ff4b87cefd1b61f57df73149865">firmar_firmware.header_c</a></div><div class="ttdeci">str header_c(str pem)</div><div class="ttdoc">Genera el contenido de clave_publica_ota.h a partir de la clave PEM.</div><div class="ttdef"><b>Definición</b> <a href="#l00048">firmar_firmware.py:48</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_dccf055762e439b5b6ec1f0cbb5c1c41.html">servidor</a></li><li class="navelem"><a href="firmar__firmware_8py.html">firmar_firmware.py</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Copiar a /etc/systemd/system/helmo-ota.service
+[Unit]
+Description=HELMO orquestador OTA y eventos HMI
+After=network-online.target mongod.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=helmo
+WorkingDirectory=/opt/helmo/servidor
+ExecStart=/opt/helmo/venv/bin/python /opt/helmo/servidor/helmo_ota.py escuchar
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

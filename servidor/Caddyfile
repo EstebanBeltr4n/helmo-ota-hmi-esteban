@@ -1,0 +1,14 @@
+# HELMO - Un solo punto de entrada para el túnel ngrok:
+#   /ota/*  -> imágenes firmadas y manifiestos (solo lectura, sin listado de carpetas)
+#   /*      -> Grafana (dashboard con inicio de sesión)
+# Arrancar ngrok apuntando aquí:  ngrok http 8088   (o tu dominio estático)
+:8088 {
+	handle_path /ota/* {
+		root * /opt/helmo/ota
+		file_server
+		header Cache-Control "no-store"
+	}
+	handle {
+		reverse_proxy localhost:3000
+	}
+}
